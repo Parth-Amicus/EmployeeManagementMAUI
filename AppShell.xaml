@@ -9,6 +9,7 @@
 
     <ShellContent
     Title="My Profile"
+    Shell.NavBarIsVisible="False"
     ContentTemplate="{DataTemplate views:InspectorProfilePage}" />
 
 </Shell>

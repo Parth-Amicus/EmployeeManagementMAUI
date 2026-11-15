@@ -86,3 +86,19 @@ Below are the observed window lifecycle events during testing and their practica
 | **`Stopped`** | Save important application state and pause background work. |
 | **`Resumed`** | Refresh visible data and restart necessary operations. |
 | **`Destroying`** | Release window-specific resources and unsubscribe from events. |
+
+
+### Safe Area Handling
+
+* **Requirement:** Ensure that application content is not hidden behind device-specific screen areas such as notches, status bars, navigation bars, or home indicators.
+* **Why It Is Needed:** Modern smartphones feature diverse screen designs—including notches, camera cutouts, status bars, and home indicators. Without proper safe area handling, UI elements can overlap these system areas, making them difficult to read or interact with.
+
+#### Implementation
+* Applied the `SafeAreaEdges` property on `InspectorProfilePage`.
+* Set `SafeAreaEdges="All"` to respect all safe area insets, keeping profile content within the visible screen area and accounting for the on-screen software keyboard.
+* Wrapped the layout in a `ScrollView` so profile content remains accessible and scrollable on smaller screens.
+
+#### Testing & Verification
+* Verified `InspectorProfilePage` on the Android emulator for proper system bar spacing, content visibility, and screen orientation changes.
+
+---

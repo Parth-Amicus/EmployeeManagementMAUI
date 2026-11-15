@@ -5,7 +5,9 @@
              x:Class="EmployeeManagementMAUI.Views.InspectorProfilePage"
              x:DataType="vm:InspectorProfileViewModel"
              Title="My Profile"
-             BackgroundColor="#F1F5F9">
+             BackgroundColor="#F1F5F9"
+             SafeAreaEdges="All"
+             >
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
