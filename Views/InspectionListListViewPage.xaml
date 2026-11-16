@@ -7,18 +7,16 @@
     x:Class="EmployeeManagementMAUI.Views.InspectionListListViewPage"
     x:DataType="vm:InspectionListViewModel"
     Title="Inspections - ListView"
-    BackgroundColor="#F1F5F9"
+    BackgroundColor="{StaticResource PageBackground}"
     SafeAreaEdges="All">
 
-    <Grid Padding="20"
+    <Grid Padding="{StaticResource SpacingPage}"
           RowDefinitions="Auto,*"
-          RowSpacing="16">
+          RowSpacing="{StaticResource SpacingCard}">
 
         <Label Grid.Row="0"
                Text="Inspections - ListView"
-               FontSize="24"
-               FontAttributes="Bold"
-               TextColor="#0F172A" />
+               Style="{StaticResource PageTitleLabelStyle}" />
 
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Inspections}"
@@ -30,50 +28,50 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:InspectionItem">
 
-                    <ViewCell>
-                        <Border BackgroundColor="White"
-                                Stroke="#E2E8F0"
-                                StrokeThickness="1"
+                    <Grid Padding="{StaticResource SpacingSmall}"
+                          Margin="0,0,0,0">
+
+                        <Border BackgroundColor="{StaticResource Surface}"
+                                Stroke="{StaticResource BorderColor}"
+                                StrokeThickness="{StaticResource CardBorderThickness}"
                                 StrokeShape="RoundRectangle 12"
-                                Padding="16"
+                                Padding="{StaticResource SpacingCard}"
                                 Margin="0,0,0,12">
 
                             <Grid ColumnDefinitions="*,Auto"
                                   RowDefinitions="Auto,Auto,Auto"
-                                  RowSpacing="8">
+                                  RowSpacing="{StaticResource SpacingMedium}">
 
                                 <Label Grid.Row="0"
                                        Grid.Column="0"
                                        Text="{Binding Title}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="#0F172A" />
+                                       Style="{StaticResource InspectionTitleLabelStyle}" />
 
                                 <Label Grid.Row="0"
                                        Grid.Column="1"
                                        Text="{Binding Status}"
-                                       FontSize="12"
+                                       FontSize="{StaticResource FontSizeCaption}"
                                        FontAttributes="Bold"
-                                       TextColor="#2563EB"
+                                       TextColor="{StaticResource Primary}"
                                        VerticalOptions="Center" />
 
                                 <Label Grid.Row="1"
                                        Grid.Column="0"
                                        Grid.ColumnSpan="2"
                                        Text="{Binding Site, StringFormat='Site: {0}'}"
-                                       FontSize="13"
-                                       TextColor="#64748B" />
+                                       FontSize="{StaticResource FontSizeSmall}"
+                                       TextColor="{StaticResource TextSecondary}" />
 
                                 <Label Grid.Row="2"
                                        Grid.Column="0"
                                        Grid.ColumnSpan="2"
                                        Text="{Binding ScheduledDate, StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
-                                       FontSize="13"
-                                       TextColor="#64748B" />
+                                       FontSize="{StaticResource FontSizeSmall}"
+                                       TextColor="{StaticResource TextSecondary}" />
 
                             </Grid>
                         </Border>
-                    </ViewCell>
+                    </Grid>
 
                 </DataTemplate>
             </ListView.ItemTemplate>

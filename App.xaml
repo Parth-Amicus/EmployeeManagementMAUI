@@ -5,10 +5,164 @@
              x:Class="EmployeeManagementMAUI.App">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+
+            <!-- ============================= -->
+            <!-- COLORS -->
+            <!-- ============================= -->
+
+            <!-- Primary colors -->
+            <Color x:Key="Primary">#2563EB</Color>
+            <Color x:Key="PrimaryDark">#1D4ED8</Color>
+            <Color x:Key="PrimaryLight">#DBEAFE</Color>
+            <Color x:Key="PrimarySoft">#EFF6FF</Color>
+
+            <!-- Background and surface colors -->
+            <Color x:Key="PageBackground">#F1F5F9</Color>
+            <Color x:Key="Surface">#FFFFFF</Color>
+
+            <!-- Text colors -->
+            <Color x:Key="TextPrimary">#0F172A</Color>
+            <Color x:Key="TextSecondary">#64748B</Color>
+            <Color x:Key="TextMuted">#94A3B8</Color>
+            <Color x:Key="TextWhite">#FFFFFF</Color>
+
+            <!-- Border colors -->
+            <Color x:Key="BorderColor">#E2E8F0</Color>
+            <Color x:Key="PhotoBorder">#DBEAFE</Color>
+
+            <!-- Status colors -->
+            <Color x:Key="StatusPending">#D97706</Color>
+            <Color x:Key="StatusInProgress">#7C3AED</Color>
+            <Color x:Key="StatusCompleted">#16A34A</Color>
+
+            <!-- Priority colors -->
+            <Color x:Key="PriorityHighBackground">#FEE2E2</Color>
+            <Color x:Key="PriorityHighText">#B91C1C</Color>
+
+            <Color x:Key="PriorityMediumBackground">#FEF3C7</Color>
+            <Color x:Key="PriorityMediumText">#B45309</Color>
+
+            <Color x:Key="PriorityLowBackground">#DCFCE7</Color>
+            <Color x:Key="PriorityLowText">#15803D</Color>
+
+            <!-- ============================= -->
+            <!-- FONT SIZES -->
+            <!-- ============================= -->
+
+            <x:Double x:Key="FontSizeCaption">12</x:Double>
+            <x:Double x:Key="FontSizeSmall">13</x:Double>
+            <x:Double x:Key="FontSizeBody">14</x:Double>
+            <x:Double x:Key="FontSizeMedium">15</x:Double>
+            <x:Double x:Key="FontSizeCardTitle">16</x:Double>
+            <x:Double x:Key="FontSizeSectionTitle">20</x:Double>
+            <x:Double x:Key="FontSizePageTitle">26</x:Double>
+            <x:Double x:Key="FontSizeProfileName">22</x:Double>
+            <x:Double x:Key="FontSizeProfileTitle">24</x:Double>
+            <x:Double x:Key="FontSizeCount">28</x:Double>
+
+            <!-- ============================= -->
+            <!-- SPACING -->
+            <!-- ============================= -->
+
+            <x:Double x:Key="SpacingExtraSmall">2</x:Double>
+            <x:Double x:Key="SpacingSmall">4</x:Double>
+            <x:Double x:Key="SpacingMedium">8</x:Double>
+            <x:Double x:Key="SpacingLarge">12</x:Double>
+            <x:Double x:Key="SpacingExtraLarge">14</x:Double>
+            <x:Double x:Key="SpacingCard">16</x:Double>
+            <x:Double x:Key="SpacingPage">20</x:Double>
+            <x:Double x:Key="SpacingProfile">24</x:Double>
+
+            <!-- ============================= -->
+            <!-- OTHER REUSABLE DIMENSIONS -->
+            <!-- ============================= -->
+
+            <x:Double x:Key="CardCornerRadius">12</x:Double>
+            <x:Int32 x:Key="ButtonCornerRadius">12</x:Int32>
+            <x:Double x:Key="SmallCornerRadius">8</x:Double>
+            <x:Double x:Key="CardBorderThickness">1</x:Double>
+            <x:Double x:Key="DividerThickness">1</x:Double>
+            <x:Double x:Key="IconSize">20</x:Double>
+            <x:Double x:Key="ContactIconSize">42</x:Double>
+            <x:Double x:Key="ProfilePhotoSize">116</x:Double>
+            <x:Double x:Key="ButtonHeight">50</x:Double>
+
+            <!-- ============================= -->
+            <!-- FONT FAMILIES -->
+            <!-- ============================= -->
+
+            <x:String x:Key="RegularFont">OpenSansRegular</x:String>
+            <x:String x:Key="SemiboldFont">OpenSansSemibold</x:String>
+
+            <!-- ============================= -->
+            <!-- IMPLICIT STYLE -->
+            <!-- ============================= -->
+
+            <!-- Applied automatically to Labels
+                 unless a different explicit style is assigned. -->
+            <Style TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource RegularFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeBody}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <!-- ============================= -->
+            <!-- EXPLICIT STYLES -->
+            <!-- ============================= -->
+
+            <!-- Page heading style -->
+            <Style x:Key="PageTitleLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource SemiboldFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizePageTitle}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <!-- Section heading style -->
+            <Style x:Key="SectionTitleLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource SemiboldFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeSectionTitle}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <!-- Inspection title style -->
+            <Style x:Key="InspectionTitleLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource SemiboldFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeCardTitle}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <!-- Primary action button style -->
+            <Style x:Key="PrimaryButtonStyle"
+                   TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource Primary}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TextWhite}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource SemiboldFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeMedium}" />
+                <Setter Property="CornerRadius"
+                        Value="{StaticResource CardCornerRadius}" />
+                <Setter Property="HeightRequest"
+                        Value="{StaticResource ButtonHeight}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

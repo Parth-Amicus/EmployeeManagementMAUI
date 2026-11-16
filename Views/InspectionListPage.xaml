@@ -7,43 +7,42 @@
     x:Class="EmployeeManagementMAUI.Views.InspectionListPage"
     x:DataType="vm:InspectionListViewModel"
     Title="Inspections"
-    BackgroundColor="#F1F5F9"
+    BackgroundColor="{StaticResource PageBackground}"
     SafeAreaEdges="All">
 
     <Grid RowDefinitions="Auto,*"
-          Padding="20"
-          RowSpacing="16">
+          Padding="{StaticResource SpacingPage}"
+          RowSpacing="{StaticResource SpacingCard}">
 
         <!-- Page Heading -->
 
-        <VerticalStackLayout Grid.Row="0" Spacing="12">
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="{StaticResource SpacingLarge}">
 
-            <VerticalStackLayout Spacing="4">
+            <VerticalStackLayout Spacing="{StaticResource SpacingSmall}">
                 <Label Text="Inspections"
-               FontSize="26"
-               FontAttributes="Bold"
-               TextColor="#0F172A" />
+                       Style="{StaticResource PageTitleLabelStyle}" />
 
                 <Label Text="View all scheduled inspections"
-               FontSize="14"
-               TextColor="#64748B" />
+                       FontSize="{StaticResource FontSizeBody}"
+                       TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
 
             <!-- Entry control for searching inspections -->
-           <Entry x:Name="SearchEntry"
-           Placeholder="Search by title or site"
-           BackgroundColor="White"
-           TextColor="#0F172A"
-           PlaceholderColor="#94A3B8"
-           ClearButtonVisibility="WhileEditing"
-           TextChanged="OnSearchTextChanged" />
+            <Entry x:Name="SearchEntry"
+                   Placeholder="Search by title or site"
+                   BackgroundColor="{StaticResource Surface}"
+                   TextColor="{StaticResource TextPrimary}"
+                   PlaceholderColor="{StaticResource TextMuted}"
+                   ClearButtonVisibility="WhileEditing"
+                   TextChanged="OnSearchTextChanged" />
 
             <!-- Picker control for filtering by status -->
             <Picker x:Name="StatusPicker"
-            Title="Filter by status"
-            BackgroundColor="White"
-            TextColor="#0F172A"
-            SelectedIndexChanged="OnStatusChanged">
+                    Title="Filter by status"
+                    BackgroundColor="{StaticResource Surface}"
+                    TextColor="{StaticResource TextPrimary}"
+                    SelectedIndexChanged="OnStatusChanged">
 
                 <Picker.Items>
                     <x:String>All</x:String>
@@ -56,37 +55,35 @@
 
         </VerticalStackLayout>
 
-
         <!-- CollectionView -->
         <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
         <!-- selectionMode = "single" defines only one item can be selected-->
         <CollectionView Grid.Row="1"
                         x:Name="InspectionCollection"
-                        ItemsSource="{Binding Inspections}"                        
+                        ItemsSource="{Binding Inspections}"
                         SelectionMode="Single"
-                       
                         VerticalScrollBarVisibility="Never">
 
             <CollectionView.EmptyView>
                 <Label Text="No inspections available"
-                       TextColor="#64748B"
+                       TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </CollectionView.EmptyView>
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
-                                   ItemSpacing="12" />
+                                   ItemSpacing="{StaticResource SpacingLarge}" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:InspectionItem">
 
                     <Border
-                        Stroke="#E2E8F0"
-                        StrokeThickness="1"
+                        Stroke="{StaticResource BorderColor}"
+                        StrokeThickness="{StaticResource CardBorderThickness}"
                         StrokeShape="RoundRectangle 12"
-                        Padding="16">
+                        Padding="{StaticResource SpacingCard}">
 
                         <!-- Selected Item Visual States -->
                         <VisualStateManager.VisualStateGroups>
@@ -95,16 +92,16 @@
                                 <VisualState x:Name="Normal">
                                     <VisualState.Setters>
                                         <Setter Property="BackgroundColor"
-                                                Value="White" />
+                                                Value="{StaticResource Surface}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="Selected">
                                     <VisualState.Setters>
                                         <Setter Property="BackgroundColor"
-                                                Value="#DBEAFE" />
+                                                Value="{StaticResource PrimaryLight}" />
                                         <Setter Property="Stroke"
-                                                Value="#2563EB" />
+                                                Value="{StaticResource Primary}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -113,24 +110,21 @@
 
                         <Grid ColumnDefinitions="*,Auto"
                               RowDefinitions="Auto,Auto,Auto"
-                              RowSpacing="8">
+                              RowSpacing="{StaticResource SpacingMedium}">
 
                             <!-- Inspection Title -->
                             <Label Grid.Row="0"
                                    Grid.Column="0"
                                    Text="{Binding Title}"
-                                   FontFamily="OpenSansSemibold"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#0F172A" />
+                                   Style="{StaticResource InspectionTitleLabelStyle}" />
 
                             <!-- Inspection Status -->
                             <Label Grid.Row="0"
                                    Grid.Column="1"
                                    Text="{Binding Status}"
-                                   FontSize="12"
+                                   FontSize="{StaticResource FontSizeCaption}"
                                    FontAttributes="Bold"
-                                   TextColor="#2563EB"
+                                   TextColor="{StaticResource Primary}"
                                    VerticalOptions="Center" />
 
                             <!-- Site -->
@@ -139,8 +133,8 @@
                                    Grid.ColumnSpan="2"
                                    Text="{Binding Site,
                                           StringFormat='Site: {0}'}"
-                                   FontSize="13"
-                                   TextColor="#64748B" />
+                                   FontSize="{StaticResource FontSizeSmall}"
+                                   TextColor="{StaticResource TextSecondary}" />
 
                             <!-- Scheduled Date -->
                             <Label Grid.Row="2"
@@ -148,8 +142,8 @@
                                    Grid.ColumnSpan="2"
                                    Text="{Binding ScheduledDate,
                                           StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
-                                   FontSize="13"
-                                   TextColor="#64748B" />
+                                   FontSize="{StaticResource FontSizeSmall}"
+                                   TextColor="{StaticResource TextSecondary}" />
 
                         </Grid>
                     </Border>
@@ -160,5 +154,3 @@
         </CollectionView>
     </Grid>
 </ContentPage>
-
-    
