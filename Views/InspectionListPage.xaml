@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    xmlns:models="clr-namespace:EmployeeManagementMAUI.Models"
+    x:Class="EmployeeManagementMAUI.Views.InspectionListPage"
+    x:DataType="vm:InspectionListViewModel"
+    Title="Inspections"
+    BackgroundColor="#F1F5F9"
+    SafeAreaEdges="All">
+
+    <Grid RowDefinitions="Auto,*"
+          Padding="20"
+          RowSpacing="16">
+
+        <!-- Page Heading -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="Inspections"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="#0F172A" />
+
+            <Label Text="View all scheduled inspections"
+                   FontSize="14"
+                   TextColor="#64748B" />
+        </VerticalStackLayout>
+
+        <!-- CollectionView -->
+        <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
+        <!-- selectionMode = "single" defines only one item can be selected-->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Inspections}"                        
+                        SelectionMode="Single"
+                       
+                        VerticalScrollBarVisibility="Never">
+
+            <CollectionView.EmptyView>
+                <Label Text="No inspections available"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:InspectionItem">
+
+                    <Border
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="16">
+
+                        <!-- Selected Item Visual States -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor"
+                                                Value="White" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor"
+                                                Value="#DBEAFE" />
+                                        <Setter Property="Stroke"
+                                                Value="#2563EB" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="8">
+
+                            <!-- Inspection Title -->
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding Title}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#0F172A" />
+
+                            <!-- Inspection Status -->
+                            <Label Grid.Row="0"
+                                   Grid.Column="1"
+                                   Text="{Binding Status}"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#2563EB"
+                                   VerticalOptions="Center" />
+
+                            <!-- Site -->
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding Site,
+                                          StringFormat='Site: {0}'}"
+                                   FontSize="13"
+                                   TextColor="#64748B" />
+
+                            <!-- Scheduled Date -->
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding ScheduledDate,
+                                          StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
+                                   FontSize="13"
+                                   TextColor="#64748B" />
+
+                        </Grid>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </Grid>
+</ContentPage>
+
+    

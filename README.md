@@ -102,3 +102,35 @@ Below are the observed window lifecycle events during testing and their practica
 * Verified `InspectorProfilePage` on the Android emulator for proper system bar spacing, content visibility, and screen orientation changes.
 
 ---
+
+### CollectionView vs. ListView
+
+* **Objective:** Implement the same inspection list using both `CollectionView` and `ListView` to evaluate their architectural and performance differences.
+
+#### Shared Data Setup
+Both implementations share the exact same underlying data layer to ensure a direct comparison:
+* **Model & ViewModel:** Powered by the shared `InspectionItem` model and `InspectionListViewModel`.
+* **Dataset:** Uses 10 hardcoded inspection records, each containing a **Title**, **Site**, **Status**, and **Scheduled Date**.
+
+#### Implementation Details
+
+| Control | Implementation Highlights |
+| :--- | :--- |
+| **`CollectionView`** | • Defined item appearance directly via `DataTemplate`.<br>• Enabled single-item selection using `SelectionMode="Single"`.<br>• Styled the active selection state with `VisualStateManager` (light blue background and blue border). |
+| **`ListView`** | • Defined row layouts using `DataTemplate` wrapped inside a `ViewCell`.<br>• Enabled dynamic row sizing with `HasUnevenRows="True"`.<br>• Configured single-item selection. |
+
+#### Feature Comparison
+
+| Feature | CollectionView | ListView |
+| :--- | :--- | :--- |
+| **Item Template** | `DataTemplate` | `DataTemplate` with `ViewCell` |
+| **Layout Flexibility** | High (supports linear, grid, and custom layouts) | Limited (vertical lists only) |
+| **Virtualization** | Efficient, modern virtualization | Older virtualization implementation |
+| **Selection** | Supports `None`, `Single`, and `Multiple` | Supports `None` and `Single` (multi-select requires custom workarounds) |
+| **Modern MAUI Choice** | Recommended | Legacy control |
+
+#### Conclusion
+* **Primary Choice:** `CollectionView` is the clear choice for scaling to 1,000+ inspection records due to its efficient item virtualization, superior layout flexibility, and modern API.
+* **Learning Outcome:** `ListView` was implemented alongside it to understand legacy Xamarin.Forms/MAUI patterns and contrast them with modern best practices.
+
+---

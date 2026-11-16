@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    xmlns:models="clr-namespace:EmployeeManagementMAUI.Models"
+    x:Class="EmployeeManagementMAUI.Views.InspectionListListViewPage"
+    x:DataType="vm:InspectionListViewModel"
+    Title="Inspections - ListView"
+    BackgroundColor="#F1F5F9"
+    SafeAreaEdges="All">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,*"
+          RowSpacing="16">
+
+        <Label Grid.Row="0"
+               Text="Inspections - ListView"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="#0F172A" />
+
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Inspections}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
+                  SelectionMode="Single"
+                  BackgroundColor="Transparent">
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:InspectionItem">
+
+                    <ViewCell>
+                        <Border BackgroundColor="White"
+                                Stroke="#E2E8F0"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="16"
+                                Margin="0,0,0,12">
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  RowSpacing="8">
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Title}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#0F172A" />
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding Status}"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#2563EB"
+                                       VerticalOptions="Center" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding Site, StringFormat='Site: {0}'}"
+                                       FontSize="13"
+                                       TextColor="#64748B" />
+
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding ScheduledDate, StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
+                                       FontSize="13"
+                                       TextColor="#64748B" />
+
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Grid>
+</ContentPage>
