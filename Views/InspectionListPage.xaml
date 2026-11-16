@@ -15,21 +15,53 @@
           RowSpacing="16">
 
         <!-- Page Heading -->
-        <VerticalStackLayout Grid.Row="0" Spacing="4">
-            <Label Text="Inspections"
-                   FontSize="26"
-                   FontAttributes="Bold"
-                   TextColor="#0F172A" />
 
-            <Label Text="View all scheduled inspections"
-                   FontSize="14"
-                   TextColor="#64748B" />
+        <VerticalStackLayout Grid.Row="0" Spacing="12">
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Inspections"
+               FontSize="26"
+               FontAttributes="Bold"
+               TextColor="#0F172A" />
+
+                <Label Text="View all scheduled inspections"
+               FontSize="14"
+               TextColor="#64748B" />
+            </VerticalStackLayout>
+
+            <!-- Entry control for searching inspections -->
+           <Entry x:Name="SearchEntry"
+           Placeholder="Search by title or site"
+           BackgroundColor="White"
+           TextColor="#0F172A"
+           PlaceholderColor="#94A3B8"
+           ClearButtonVisibility="WhileEditing"
+           TextChanged="OnSearchTextChanged" />
+
+            <!-- Picker control for filtering by status -->
+            <Picker x:Name="StatusPicker"
+            Title="Filter by status"
+            BackgroundColor="White"
+            TextColor="#0F172A"
+            SelectedIndexChanged="OnStatusChanged">
+
+                <Picker.Items>
+                    <x:String>All</x:String>
+                    <x:String>Pending</x:String>
+                    <x:String>In Progress</x:String>
+                    <x:String>Completed</x:String>
+                </Picker.Items>
+
+            </Picker>
+
         </VerticalStackLayout>
+
 
         <!-- CollectionView -->
         <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
         <!-- selectionMode = "single" defines only one item can be selected-->
         <CollectionView Grid.Row="1"
+                        x:Name="InspectionCollection"
                         ItemsSource="{Binding Inspections}"                        
                         SelectionMode="Single"
                        
@@ -87,6 +119,7 @@
                             <Label Grid.Row="0"
                                    Grid.Column="0"
                                    Text="{Binding Title}"
+                                   FontFamily="OpenSansSemibold"
                                    FontSize="16"
                                    FontAttributes="Bold"
                                    TextColor="#0F172A" />
