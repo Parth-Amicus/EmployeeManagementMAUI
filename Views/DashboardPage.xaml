@@ -66,8 +66,10 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
+                        </Border.StrokeShape>
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Total"
@@ -87,8 +89,10 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
+                        </Border.StrokeShape>
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Pending"
@@ -108,8 +112,10 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
+                        </Border.StrokeShape>
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="In Progress"
@@ -129,8 +135,10 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
+                        </Border.StrokeShape>
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Completed"
@@ -160,9 +168,11 @@
 
                         <Border BackgroundColor="{StaticResource PriorityHighBackground}"
                                 StrokeThickness="{StaticResource NoBorderThickness}"
-                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="{StaticResource SmallCornerRadius}" />
+                            </Border.StrokeShape>
                             <Label Text="High"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    FontAttributes="Bold"
@@ -171,9 +181,11 @@
 
                         <Border BackgroundColor="{StaticResource PriorityMediumBackground}"
                                 StrokeThickness="{StaticResource NoBorderThickness}"
-                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="{StaticResource SmallCornerRadius}" />
+                            </Border.StrokeShape>
                             <Label Text="Medium"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    FontAttributes="Bold"
@@ -182,9 +194,11 @@
 
                         <Border BackgroundColor="{StaticResource PriorityLowBackground}"
                                 StrokeThickness="{StaticResource NoBorderThickness}"
-                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="{StaticResource SmallCornerRadius}" />
+                            </Border.StrokeShape>
                             <Label Text="Low"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    FontAttributes="Bold"
