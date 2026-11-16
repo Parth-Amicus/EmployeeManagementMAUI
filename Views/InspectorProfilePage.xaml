@@ -6,7 +6,8 @@
              x:DataType="vm:InspectorProfileViewModel"
              Title="My Profile"
              Shell.NavBarIsVisible="True"
-             Shell.BackButtonBehavior="{x:Null}"
+             Shell.BackButtonBehavior="{x:Null}"    
+             Shell.BackgroundColor="#1D4ED8"
              BackgroundColor="{StaticResource PageBackground}"
              SafeAreaEdges="All">
 
