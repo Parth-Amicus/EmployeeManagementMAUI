@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    xmlns:models="clr-namespace:EmployeeManagementMAUI.Models"
+    x:Class="EmployeeManagementMAUI.Views.DashboardPage"
+    x:DataType="vm:DashboardViewModel"
+    Title="Dashboard"
+    BackgroundColor="#F1F5F9"
+    SafeAreaEdges="All">
+
+    <!--
+        GRID SIZING EXPLANATION:
+
+        Rows:
+        64  = Absolute size. Reserves a fixed 64-unit area for the heading.
+        *   = Star size. Takes all remaining available vertical space.
+
+        Columns:
+        20  = Absolute size. Provides a fixed 20-unit left margin.
+        *   = Star size. Takes the remaining width for page content.
+        20  = Absolute size. Provides a fixed 20-unit right margin.
+
+        Auto is used in the summary cards below:
+        Auto adjusts each row or column to fit its content.
+        This prevents the card content from receiving unnecessary fixed space.
+    -->
+
+    <Grid RowDefinitions="64,*"
+        ColumnDefinitions="20,*,20">
+
+        <!-- Dashboard Heading -->
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Text="Dashboard"
+               FontSize="26"
+               FontAttributes="Bold"
+               TextColor="#0F172A"
+               VerticalOptions="Center" />
+
+        <!-- Scrollable Dashboard Content -->
+        <ScrollView Grid.Row="1"
+                    Grid.Column="1">
+
+            <VerticalStackLayout Spacing="22"
+                                 Padding="0,10,0,24">
+
+                <!-- Summary Cards -->
+                <Grid RowDefinitions="Auto,Auto"
+                      ColumnDefinitions="*,*"
+                      RowSpacing="14"
+                      ColumnSpacing="14">
+
+                    <!-- Total Inspections -->
+                    <Border Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="16">
+
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Total"
+                                   FontSize="14"
+                                   TextColor="#64748B" />
+
+                            <Label Text="{Binding TotalInspections}"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#2563EB" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Pending Inspections -->
+                    <Border Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="16">
+
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Pending"
+                                   FontSize="14"
+                                   TextColor="#64748B" />
+
+                            <Label Text="{Binding PendingInspections}"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#D97706" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- In Progress Inspections -->
+                    <Border Grid.Row="1"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="16">
+
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="In Progress"
+                                   FontSize="14"
+                                   TextColor="#64748B" />
+
+                            <Label Text="{Binding InProgressInspections}"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C3AED" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Completed Inspections -->
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="16">
+
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Completed"
+                                   FontSize="14"
+                                   TextColor="#64748B" />
+
+                            <Label Text="{Binding CompletedInspections}"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#16A34A" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- Today's Inspections -->
+                <VerticalStackLayout Spacing="14">
+
+                    <Label Text="Today's inspections"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#0F172A" />
+
+                    <!-- Priority Tags -->
+                    <FlexLayout Direction="Row"
+                                Wrap="Wrap"
+                                AlignItems="Start"
+                                JustifyContent="Start">
+
+                        <Border BackgroundColor="#FEE2E2"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12,6"
+                                Margin="0,0,8,8">
+                            <Label Text="High"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#B91C1C" />
+                        </Border>
+
+                        <Border BackgroundColor="#FEF3C7"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12,6"
+                                Margin="0,0,8,8">
+                            <Label Text="Medium"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#B45309" />
+                        </Border>
+
+                        <Border BackgroundColor="#DCFCE7"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12,6"
+                                Margin="0,0,8,8">
+                            <Label Text="Low"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#15803D" />
+                        </Border>
+
+                    </FlexLayout>
+
+                    <!-- Inspection List -->
+                    <VerticalStackLayout
+                        BindableLayout.ItemsSource="{Binding TodaysInspections}"
+                        Spacing="12">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:InspectionItem">
+
+                                <Border BackgroundColor="White"
+                                        Stroke="#E2E8F0"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="16">
+
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          RowDefinitions="Auto,Auto"
+                                          RowSpacing="6">
+
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="{Binding Title}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#0F172A" />
+
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1"
+                                               Text="{Binding Time}"
+                                               FontSize="12"
+                                               TextColor="#64748B"
+                                               VerticalOptions="Center" />
+
+                                        <Label Grid.Row="1"
+                                               Grid.Column="0"
+                                               Text="{Binding Location}"
+                                               FontSize="13"
+                                               TextColor="#64748B" />
+
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>
