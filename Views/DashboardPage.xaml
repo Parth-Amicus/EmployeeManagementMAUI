@@ -66,7 +66,7 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle 14"
+                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
@@ -87,7 +87,7 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle 14"
+                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
@@ -108,7 +108,7 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle 14"
+                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
@@ -129,7 +129,7 @@
                             BackgroundColor="{StaticResource Surface}"
                             Stroke="{StaticResource BorderColor}"
                             StrokeThickness="{StaticResource CardBorderThickness}"
-                            StrokeShape="RoundRectangle 14"
+                            StrokeShape="RoundRectangle {StaticResource SummaryCardCornerRadius}"
                             Padding="{StaticResource SummaryCardPadding}">
 
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
@@ -159,8 +159,8 @@
                                 JustifyContent="Start">
 
                         <Border BackgroundColor="{StaticResource PriorityHighBackground}"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 8"
+                                StrokeThickness="{StaticResource NoBorderThickness}"
+                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
                             <Label Text="High"
@@ -170,8 +170,8 @@
                         </Border>
 
                         <Border BackgroundColor="{StaticResource PriorityMediumBackground}"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 8"
+                                StrokeThickness="{StaticResource NoBorderThickness}"
+                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
                             <Label Text="Medium"
@@ -181,8 +181,8 @@
                         </Border>
 
                         <Border BackgroundColor="{StaticResource PriorityLowBackground}"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 8"
+                                StrokeThickness="{StaticResource NoBorderThickness}"
+                                StrokeShape="RoundRectangle {StaticResource SmallCornerRadius}"
                                 Padding="{StaticResource PriorityTagPadding}"
                                 Margin="{StaticResource PriorityTagMargin}">
                             <Label Text="Low"
@@ -222,9 +222,7 @@
                                         <Label Grid.Row="0"
                                                Grid.Column="1"
                                                Text="{Binding Status}"
-                                               FontSize="{StaticResource FontSizeCaption}"
-                                               FontAttributes="Bold"
-                                               TextColor="{StaticResource Primary}"
+                                               Style="{StaticResource StatusLabelStyle}"
                                                VerticalOptions="Center" />
 
                                         <!-- Inspection site -->
