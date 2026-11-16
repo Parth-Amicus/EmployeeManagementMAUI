@@ -40,12 +40,48 @@
             <ColumnDefinition Width="{StaticResource PageHorizontalInset}" />
         </Grid.ColumnDefinitions>
 
-        <!-- Dashboard Heading -->
-        <Label Grid.Row="0"
-               Grid.Column="1"
-               Text="Dashboard"
-               Style="{StaticResource PageTitleLabelStyle}"
-               VerticalOptions="Center" />
+        <!-- Dashboard Header: title left, profile icon right -->
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              ColumnDefinitions="*,Auto"
+              VerticalOptions="Center">
+
+            <Label Grid.Column="0"
+                   Text="Dashboard"
+                   Style="{StaticResource PageTitleLabelStyle}"
+                   VerticalOptions="Center" />
+
+            <!--
+                Profile icon button — tinted circle with a person-silhouette Path.
+                Tapped event is handled in DashboardPage.xaml.cs and pushes
+                InspectorProfilePage onto the Shell navigation stack.
+            -->
+            <Border Grid.Column="1"
+                    x:Name="ProfileIconBorder"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="{StaticResource PrimarySoft}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileIconTapped" />
+                </Border.GestureRecognizers>
+
+                <!-- Person silhouette (MDI account icon path) -->
+                <Path Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"
+                      Fill="{StaticResource Primary}"
+                      WidthRequest="22"
+                      HeightRequest="22"
+                      Aspect="Uniform"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
+
+            </Border>
+
+        </Grid>
 
         <!-- Scrollable Dashboard Content -->
         <ScrollView Grid.Row="1"
@@ -134,8 +170,32 @@
                 <!-- Today's Inspections -->
                 <VerticalStackLayout Spacing="{StaticResource SpacingExtraLarge}">
 
-                    <Label Text="Today's inspections"
-                           Style="{StaticResource SectionTitleLabelStyle}" />
+                    <!--
+                        Section header row: title on the left, "View All" link on the right.
+                        The View All button is handled in code-behind and pushes
+                        InspectionListPage via Shell.Current.GoToAsync("inspections").
+                    -->
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
+
+                        <Label Grid.Column="0"
+                               Text="Today's inspections"
+                               Style="{StaticResource SectionTitleLabelStyle}"
+                               VerticalOptions="Center" />
+
+                        <Button Grid.Column="1"
+                                x:Name="ViewAllButton"
+                                Text="View All"
+                                Clicked="OnViewAllTapped"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource Primary}"
+                                FontFamily="{StaticResource SemiboldFont}"
+                                FontSize="{StaticResource FontSizeBody}"
+                                Padding="4,0"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End" />
+
+                    </Grid>
 
                     <!-- Priority Tags -->
                     <FlexLayout Direction="Row"

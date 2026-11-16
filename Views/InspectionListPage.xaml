@@ -8,6 +8,8 @@
     x:Class="EmployeeManagementMAUI.Views.InspectionListPage"
     x:DataType="vm:InspectionListViewModel"
     Title="Inspections"
+    Shell.NavBarIsVisible="True"
+    Shell.BackButtonBehavior="{x:Null}"
     BackgroundColor="{StaticResource PageBackground}"
     SafeAreaEdges="All">
 

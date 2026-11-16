@@ -5,6 +5,8 @@
              x:Class="EmployeeManagementMAUI.Views.InspectorProfilePage"
              x:DataType="vm:InspectorProfileViewModel"
              Title="My Profile"
+             Shell.NavBarIsVisible="True"
+             Shell.BackButtonBehavior="{x:Null}"
              BackgroundColor="{StaticResource PageBackground}"
              SafeAreaEdges="All">
 
