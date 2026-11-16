@@ -74,13 +74,16 @@
             <x:Double x:Key="SpacingExtraSmall">2</x:Double>
             <x:Double x:Key="SpacingSmall">4</x:Double>
             <x:Double x:Key="SpacingMedium">8</x:Double>
-            <x:Double x:Key="SpacingLarge">12</x:Double>
-            <x:Double x:Key="SpacingExtraLarge">14</x:Double>
-            <x:Double x:Key="SpacingCard">16</x:Double>
-            <x:Double x:Key="SpacingPage">20</x:Double>
-            <x:Double x:Key="SpacingProfile">24</x:Double>
-            <x:Double x:Key="SpacingDashboardSection">24</x:Double>
-            <x:Double x:Key="SpacingMainContent">25</x:Double>
+            <!-- SpacingLarge: gap between list cards (ItemSpacing in LinearItemsLayout) -->
+            <x:Double x:Key="SpacingLarge">8</x:Double>
+            <x:Double x:Key="SpacingExtraLarge">12</x:Double>
+            <x:Double x:Key="SpacingCard">14</x:Double>
+            <!-- SpacingPage: outer page padding (left/right inset beside cards) -->
+            <x:Double x:Key="SpacingPage">14</x:Double>
+            <x:Double x:Key="SpacingProfile">20</x:Double>
+            <!-- SpacingDashboardSection: vertical gap between dashboard sections -->
+            <x:Double x:Key="SpacingDashboardSection">16</x:Double>
+            <x:Double x:Key="SpacingMainContent">20</x:Double>
 
             <!-- ============================= -->
             <!-- OTHER REUSABLE DIMENSIONS -->
@@ -98,29 +101,32 @@
             <x:Double x:Key="ProfilePhotoSize">116</x:Double>
             <x:Double x:Key="ButtonHeight">50</x:Double>
             <x:Double x:Key="MinTouchTarget">44</x:Double>
-            <x:Double x:Key="ShadowRadius">15</x:Double>
-            <x:Double x:Key="ShadowOpacity">0.5</x:Double>
+            <x:Double x:Key="ShadowRadius">10</x:Double>
+            <x:Double x:Key="ShadowOpacity">0.4</x:Double>
             <x:Double x:Key="ProfileCardBorderThickness">1</x:Double>
             <x:Double x:Key="ProfilePhotoBorderThickness">3</x:Double>
             <x:Double x:Key="DashboardHeaderHeight">64</x:Double>
-            <x:Double x:Key="PageHorizontalInset">20</x:Double>
+            <!-- PageHorizontalInset: fixed left/right gutter columns on the Dashboard -->
+            <x:Double x:Key="PageHorizontalInset">14</x:Double>
 
             <!-- ============================= -->
             <!-- COMPOSITE PADDING / MARGIN -->
             <!-- ============================= -->
 
-            <Thickness x:Key="SummaryCardPadding">16,12</Thickness>
-            <Thickness x:Key="DashboardContentPadding">0,8,0,24</Thickness>
+            <Thickness x:Key="SummaryCardPadding">14,10</Thickness>
+            <!-- DashboardContentPadding: top/bottom breathing room inside the dashboard scroll area -->
+            <Thickness x:Key="DashboardContentPadding">0,6,0,16</Thickness>
             <Thickness x:Key="PriorityTagPadding">8,4</Thickness>
-            <Thickness x:Key="PriorityTagMargin">0,0,8,8</Thickness>
-            <Thickness x:Key="InspectionCardPadding">16</Thickness>
-            <Thickness x:Key="ProfileCardPadding">24</Thickness>
+            <Thickness x:Key="PriorityTagMargin">0,0,8,6</Thickness>
+            <!-- InspectionCardPadding: inner padding of each inspection row card -->
+            <Thickness x:Key="InspectionCardPadding">14,12</Thickness>
+            <Thickness x:Key="ProfileCardPadding">20</Thickness>
             <Thickness x:Key="BadgePadding">12,4</Thickness>
             <Thickness x:Key="BadgeMargin">0,4,0,0</Thickness>
-            <Thickness x:Key="DividerMargin">0,8</Thickness>
-            <Thickness x:Key="ContactRowMargin">0,8,0,0</Thickness>
-            <Thickness x:Key="PaddingMainPage">30,0</Thickness>
-            <Thickness x:Key="CardBottomMargin">0,0,0,12</Thickness>
+            <Thickness x:Key="DividerMargin">0,6</Thickness>
+            <Thickness x:Key="ContactRowMargin">0,6,0,0</Thickness>
+            <Thickness x:Key="PaddingMainPage">24,0</Thickness>
+            <Thickness x:Key="CardBottomMargin">0,0,0,8</Thickness>
             <Thickness x:Key="ButtonInlinePadding">14,10</Thickness>
 
             <!-- ============================= -->
