@@ -22,25 +22,25 @@ public class DashboardViewModel
             new InspectionItem
             {
                 Title = "Safety Equipment Check",
-                Location = "Building A",
-                Time = "10:30 AM",
-                Priority = "High"
+                Site = "Building A",
+                Status = "Pending",
+                ScheduledDate = DateTime.Today.AddHours(10).AddMinutes(30)
             },
 
             new InspectionItem
             {
                 Title = "Fire Extinguisher Inspection",
-                Location = "Building B",
-                Time = "12:00 PM",
-                Priority = "Medium"
+                Site = "Building B",
+                Status = "In Progress",
+                ScheduledDate = DateTime.Today.AddHours(12)
             },
 
             new InspectionItem
             {
                 Title = "Electrical Inspection",
-                Location = "Building C",
-                Time = "02:30 PM",
-                Priority = "Low"
+                Site = "Building C",
+                Status = "Completed",
+                ScheduledDate = DateTime.Today.AddHours(14).AddMinutes(30)
             }
         };
     }

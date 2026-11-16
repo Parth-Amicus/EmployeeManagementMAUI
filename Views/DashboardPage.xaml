@@ -201,31 +201,47 @@
                                         StrokeShape="RoundRectangle 12"
                                         Padding="16">
 
-                                    <Grid ColumnDefinitions="*,Auto"
-                                          RowDefinitions="Auto,Auto"
-                                          RowSpacing="6">
 
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          RowDefinitions="Auto,Auto,Auto"
+                                          RowSpacing="8">
+
+                                        <!-- Inspection title -->
                                         <Label Grid.Row="0"
                                                Grid.Column="0"
                                                Text="{Binding Title}"
                                                FontSize="15"
                                                FontAttributes="Bold"
-                                               TextColor="#0F172A" />
-
-                                        <Label Grid.Row="0"
-                                               Grid.Column="1"
-                                               Text="{Binding Time}"
-                                               FontSize="12"
-                                               TextColor="#64748B"
+                                               TextColor="#0F172A"
                                                VerticalOptions="Center" />
 
+                                        <!-- Inspection status -->
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1"
+                                               Text="{Binding Status}"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               TextColor="#2563EB"
+                                               VerticalOptions="Center" />
+
+                                        <!-- Inspection site -->
                                         <Label Grid.Row="1"
                                                Grid.Column="0"
-                                               Text="{Binding Location}"
+                                               Grid.ColumnSpan="2"
+                                               Text="{Binding Site, StringFormat='Site: {0}'}"
+                                               FontSize="13"
+                                               TextColor="#64748B" />
+
+                                        <!-- Scheduled date and time -->
+                                        <Label Grid.Row="2"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Text="{Binding ScheduledDate, StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
                                                FontSize="13"
                                                TextColor="#64748B" />
 
                                     </Grid>
+
                                 </Border>
 
                             </DataTemplate>
