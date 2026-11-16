@@ -13,19 +13,9 @@
             Padding="{StaticResource SpacingPage}"
             Spacing="{StaticResource SpacingPage}">
 
-            <!-- Profile Card -->
-            <Border BackgroundColor="{StaticResource Surface}"
-                    Stroke="{StaticResource BorderColor}"
-                    StrokeThickness="{StaticResource ProfileCardBorderThickness}"
-                    StrokeShape="RoundRectangle 10"
-                    Padding="{StaticResource ProfileCardPadding}">
-
-                <Border.Shadow>
-                    <Shadow Brush="{StaticResource TextPrimary}"
-                            Offset="0,4"
-                            Radius="12"
-                            Opacity="0.06" />
-                </Border.Shadow>
+            <!-- Profile Card — shell provided by CardTemplate ControlTemplate -->
+            <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                         Padding="{StaticResource ProfileCardPadding}">
 
                 <VerticalStackLayout Spacing="{StaticResource SpacingCard}">
 
@@ -154,7 +144,7 @@
                             Margin="{StaticResource ContactRowMargin}" />
 
                 </VerticalStackLayout>
-            </Border>
+            </ContentView>
 
         </VerticalStackLayout>
     </ScrollView>

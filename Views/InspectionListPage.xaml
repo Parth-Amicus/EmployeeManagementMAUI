@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
     xmlns:models="clr-namespace:EmployeeManagementMAUI.Models"
+    xmlns:controls="clr-namespace:EmployeeManagementMAUI.Controls"
     x:Class="EmployeeManagementMAUI.Views.InspectionListPage"
     x:DataType="vm:InspectionListViewModel"
     Title="Inspections"
@@ -79,11 +80,14 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:InspectionItem">
 
-                    <Border
-                        Stroke="{StaticResource BorderColor}"
-                        StrokeThickness="{StaticResource CardBorderThickness}"
-                        StrokeShape="RoundRectangle 12"
-                        Padding="{StaticResource SpacingCard}">
+                    <!--
+                        CardTemplate provides the standard white-surface card shell
+                        (rounded corners + drop shadow), matching the dashboard and
+                        profile cards.  VisualStateManager on the ContentView host
+                        lets the CollectionView drive the Normal / Selected highlight.
+                    -->
+                    <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="{StaticResource SpacingCard}">
 
                         <!-- Selected Item Visual States -->
                         <VisualStateManager.VisualStateGroups>
@@ -92,7 +96,7 @@
                                 <VisualState x:Name="Normal">
                                     <VisualState.Setters>
                                         <Setter Property="BackgroundColor"
-                                                Value="{StaticResource Surface}" />
+                                                Value="Transparent" />
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -100,8 +104,6 @@
                                     <VisualState.Setters>
                                         <Setter Property="BackgroundColor"
                                                 Value="{StaticResource PrimaryLight}" />
-                                        <Setter Property="Stroke"
-                                                Value="{StaticResource Primary}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -118,13 +120,11 @@
                                    Text="{Binding Title}"
                                    Style="{StaticResource InspectionTitleLabelStyle}" />
 
-                            <!-- Inspection Status -->
-                            <Label Grid.Row="0"
+                            <!-- Inspection Status — reusable StatusBadge control -->
+                            <controls:StatusBadge
+                                   Grid.Row="0"
                                    Grid.Column="1"
-                                   Text="{Binding Status}"
-                                   FontSize="{StaticResource FontSizeCaption}"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource Primary}"
+                                   Status="{Binding Status}"
                                    VerticalOptions="Center" />
 
                             <!-- Site -->
@@ -146,7 +146,7 @@
                                    TextColor="{StaticResource TextSecondary}" />
 
                         </Grid>
-                    </Border>
+                    </ContentView>
 
                 </DataTemplate>
             </CollectionView.ItemTemplate>

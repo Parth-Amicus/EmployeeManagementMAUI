@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    StatusBadge — reusable coloured pill for inspection statuses.
+
+    Usage:
+        <controls:StatusBadge Status="{Binding Status}" />
+
+    Supported values:  "Pending" | "In Progress" | "Completed"
+
+    Binding pattern:
+        Internal labels bind to the control's own Status property via
+        {Binding Source={x:Reference self}, Path=Status} rather than to the
+        surrounding BindingContext. This prevents collisions when the badge is
+        placed inside a DataTemplate whose BindingContext is an InspectionItem.
+-->
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:EmployeeManagementMAUI.Converters"
+    x:Class="EmployeeManagementMAUI.Controls.StatusBadge"
+    x:Name="self">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:StatusToBackgroundConverter x:Key="StatusToBackground" />
+            <converters:StatusToTextColorConverter  x:Key="StatusToTextColor" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <!-- Pill shell: background driven by converter; no visible border -->
+    <Border BackgroundColor="{Binding Source={x:Reference self},
+                                      Path=Status,
+                                      Converter={StaticResource StatusToBackground}}"
+            StrokeThickness="0"
+            Padding="10,4"
+            HorizontalOptions="Start"
+            VerticalOptions="Center">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="8" />
+        </Border.StrokeShape>
+
+        <Label Text="{Binding Source={x:Reference self}, Path=Status}"
+               TextColor="{Binding Source={x:Reference self},
+                                   Path=Status,
+                                   Converter={StaticResource StatusToTextColor}}"
+               FontSize="12"
+               FontAttributes="Bold"
+               VerticalOptions="Center" />
+
+    </Border>
+</ContentView>

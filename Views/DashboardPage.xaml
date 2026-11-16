@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
     xmlns:models="clr-namespace:EmployeeManagementMAUI.Models"
+    xmlns:controls="clr-namespace:EmployeeManagementMAUI.Controls"
     x:Class="EmployeeManagementMAUI.Views.DashboardPage"
     x:DataType="vm:DashboardViewModel"
     Title="Dashboard"
@@ -61,16 +62,10 @@
                       ColumnSpacing="{StaticResource SpacingExtraLarge}">
 
                     <!-- Total Inspections -->
-                    <Border Grid.Row="0"
-                            Grid.Column="0"
-                            BackgroundColor="{StaticResource Surface}"
-                            Stroke="{StaticResource BorderColor}"
-                            StrokeThickness="{StaticResource CardBorderThickness}"
-                            Padding="{StaticResource SummaryCardPadding}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
-                        </Border.StrokeShape>
-
+                    <ContentView Grid.Row="0"
+                                 Grid.Column="0"
+                                 ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="{StaticResource SummaryCardPadding}">
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Total"
                                    FontSize="{StaticResource FontSizeBody}"
@@ -81,19 +76,13 @@
                                    FontAttributes="Bold"
                                    TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
-                    </Border>
+                    </ContentView>
 
                     <!-- Pending Inspections -->
-                    <Border Grid.Row="0"
-                            Grid.Column="1"
-                            BackgroundColor="{StaticResource Surface}"
-                            Stroke="{StaticResource BorderColor}"
-                            StrokeThickness="{StaticResource CardBorderThickness}"
-                            Padding="{StaticResource SummaryCardPadding}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
-                        </Border.StrokeShape>
-
+                    <ContentView Grid.Row="0"
+                                 Grid.Column="1"
+                                 ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="{StaticResource SummaryCardPadding}">
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Pending"
                                    FontSize="{StaticResource FontSizeBody}"
@@ -104,19 +93,13 @@
                                    FontAttributes="Bold"
                                    TextColor="{StaticResource StatusPending}" />
                         </VerticalStackLayout>
-                    </Border>
+                    </ContentView>
 
                     <!-- In Progress Inspections -->
-                    <Border Grid.Row="1"
-                            Grid.Column="0"
-                            BackgroundColor="{StaticResource Surface}"
-                            Stroke="{StaticResource BorderColor}"
-                            StrokeThickness="{StaticResource CardBorderThickness}"
-                            Padding="{StaticResource SummaryCardPadding}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
-                        </Border.StrokeShape>
-
+                    <ContentView Grid.Row="1"
+                                 Grid.Column="0"
+                                 ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="{StaticResource SummaryCardPadding}">
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="In Progress"
                                    FontSize="{StaticResource FontSizeBody}"
@@ -127,19 +110,13 @@
                                    FontAttributes="Bold"
                                    TextColor="{StaticResource StatusInProgress}" />
                         </VerticalStackLayout>
-                    </Border>
+                    </ContentView>
 
                     <!-- Completed Inspections -->
-                    <Border Grid.Row="1"
-                            Grid.Column="1"
-                            BackgroundColor="{StaticResource Surface}"
-                            Stroke="{StaticResource BorderColor}"
-                            StrokeThickness="{StaticResource CardBorderThickness}"
-                            Padding="{StaticResource SummaryCardPadding}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="{StaticResource SummaryCardCornerRadius}" />
-                        </Border.StrokeShape>
-
+                    <ContentView Grid.Row="1"
+                                 Grid.Column="1"
+                                 ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="{StaticResource SummaryCardPadding}">
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Completed"
                                    FontSize="{StaticResource FontSizeBody}"
@@ -150,7 +127,7 @@
                                    FontAttributes="Bold"
                                    TextColor="{StaticResource StatusCompleted}" />
                         </VerticalStackLayout>
-                    </Border>
+                    </ContentView>
 
                 </Grid>
 
@@ -215,11 +192,13 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:InspectionItem">
 
-                                <Border BackgroundColor="{StaticResource Surface}"
-                                        Stroke="{StaticResource BorderColor}"
-                                        StrokeThickness="{StaticResource CardBorderThickness}"
-                                        StrokeShape="RoundRectangle 12"
-                                        Padding="{StaticResource InspectionCardPadding}">
+                                <!--
+                                    CardTemplate wraps the card in the shared white-surface Border with
+                                    rounded corners and a drop shadow, exactly like the summary cards above.
+                                    StatusBadge shows the colour-coded Pending / In Progress / Completed pill.
+                                -->
+                                <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                                             Padding="{StaticResource InspectionCardPadding}">
 
                                     <Grid ColumnDefinitions="*,Auto"
                                           RowDefinitions="Auto,Auto,Auto"
@@ -232,11 +211,11 @@
                                                Style="{StaticResource InspectionTitleLabelStyle}"
                                                VerticalOptions="Center" />
 
-                                        <!-- Inspection status -->
-                                        <Label Grid.Row="0"
+                                        <!-- Inspection status — reusable StatusBadge control -->
+                                        <controls:StatusBadge
+                                               Grid.Row="0"
                                                Grid.Column="1"
-                                               Text="{Binding Status}"
-                                               Style="{StaticResource StatusLabelStyle}"
+                                               Status="{Binding Status}"
                                                VerticalOptions="Center" />
 
                                         <!-- Inspection site -->
@@ -257,7 +236,7 @@
 
                                     </Grid>
 
-                                </Border>
+                                </ContentView>
 
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>

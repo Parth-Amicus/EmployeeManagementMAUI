@@ -35,6 +35,11 @@
             <Color x:Key="StatusInProgress">#7C3AED</Color>
             <Color x:Key="StatusCompleted">#16A34A</Color>
 
+            <!-- Status badge background colours (lighter tints for pill bg) -->
+            <Color x:Key="StatusPendingBackground">#FEF3C7</Color>
+            <Color x:Key="StatusInProgressBackground">#EDE9FE</Color>
+            <Color x:Key="StatusCompletedBackground">#DCFCE7</Color>
+
             <!-- Priority colors -->
             <Color x:Key="PriorityHighBackground">#FEE2E2</Color>
             <Color x:Key="PriorityHighText">#B91C1C</Color>
@@ -207,6 +212,36 @@
                 <Setter Property="StrokeShape"
                         Value="RoundRectangle 12" />
             </Style>
+
+            <!--
+                CardTemplate — ControlTemplate for the standard card shell.
+
+                Usage (on a ContentView):
+                    <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                                 Padding="16,12">
+                        <YourContent />
+                    </ContentView>
+
+                The host ContentView's Padding is forwarded to the inner Border
+                via TemplateBinding so each usage site controls its own spacing.
+            -->
+            <ControlTemplate x:Key="CardTemplate">
+                <Border BackgroundColor="{StaticResource Surface}"
+                        Stroke="{StaticResource BorderColor}"
+                        StrokeThickness="{StaticResource CardBorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource TextPrimary}"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.06" />
+                    </Border.Shadow>
+                    <ContentPresenter />
+                </Border>
+            </ControlTemplate>
 
             <!-- Status badge label style -->
             <!-- Used for the inspection Status text shown in the top-right of every card. -->
