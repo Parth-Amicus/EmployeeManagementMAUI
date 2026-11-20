@@ -17,10 +17,13 @@
 <ContentView
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:EmployeeManagementMAUI.Converters"
+    
+    xmlns:converters="clr-namespace:EmployeeManagementMAUI.Converters" 
     x:Class="EmployeeManagementMAUI.Controls.StatusBadge"
     x:Name="self">
+    <!-- converters alias so that we can use converter calss directly-->
 
+    <!-- defines resource that can be used inside the content view-->
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:StatusToBackgroundConverter x:Key="StatusToBackground" />
@@ -28,15 +31,18 @@
         </ResourceDictionary>
     </ContentView.Resources>
 
-    <!-- Pill shell: background driven by converter; no visible border -->
+    <!-- Pill shell: background driven by converter -->
+    <!-- self get value from the status badge control itself -->
+    <!--path = status - tells maui to read its status property-->
     <Border BackgroundColor="{Binding Source={x:Reference self},
                                       Path=Status,
                                       Converter={StaticResource StatusToBackground}}"
+            
             StrokeThickness="0"
             Padding="10,4"
             HorizontalOptions="Start"
             VerticalOptions="Center">
-
+        <!-- passes the status to background converter-->
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="8" />
         </Border.StrokeShape>

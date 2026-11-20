@@ -65,6 +65,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="..\..\Users\parth_singh\Downloads\Poppins\Poppins-Bold.ttf" Link="Resources\Fonts\Poppins-Bold.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Include="Resources\Images\user.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>

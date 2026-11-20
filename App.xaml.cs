@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
+// application initialization and lifecycle 
 namespace EmployeeManagementMAUI
 {
     public partial class App : Application // App class inherited from the MAUI Application Class

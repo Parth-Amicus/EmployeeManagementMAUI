@@ -72,9 +72,8 @@ Below are the observed window lifecycle events during testing and their practica
 1. **Application Launch:** `Created` ➔ `Activated`
 2. **Pressing Home (Backgrounding):** `Deactivated` ➔ `Stopped`
 3. **Returning to Application:** `Resumed` ➔ `Activated`
-4. **Application Termination:** `[Update after testing]` *(e.g., `Stopped` ➔ `Destroying`)*
+4. **Application Termination:** `Stopped` ➔ `Destroying`
 
-> **Note:** Actual event ordering and termination behavior can vary depending on the target platform and operating system resource management.
 
 ### Real-World Lifecycle Use Cases
 
