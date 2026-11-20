@@ -15,6 +15,9 @@ public class StatusToTextColorConverter : IValueConverter
             "Pending"     => Color.FromArgb("#B45309"),  // amber-700
             "In Progress" => Color.FromArgb("#6D28D9"),  // violet-700
             "Completed"   => Color.FromArgb("#15803D"),  // green-700
+            "High" => Color.FromArgb("#B91C1C"),
+            "Medium" => Color.FromArgb("#B45309"),
+            "Low" => Color.FromArgb("#15803D"),
             _             => Color.FromArgb("#64748B")   // slate-500 fallback
         };
     }

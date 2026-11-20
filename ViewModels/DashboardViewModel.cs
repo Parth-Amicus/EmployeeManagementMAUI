@@ -4,7 +4,7 @@ using EmployeeManagementMAUI.Models;
 
 namespace EmployeeManagementMAUI.ViewModels;
 
-public class DashboardViewModel
+public class DashboardViewModel : BaseViewModel
 {
     // Hardcoded summary counts for the dashboard
     public int TotalInspections { get; set; } = 24;
@@ -13,34 +13,34 @@ public class DashboardViewModel
     public int CompletedInspections { get; set; } = 10;
 
     //  ObservableCollection is a collection that notifies the UI when items are added or removed
-    public ObservableCollection<InspectionItem> TodaysInspections { get; set; }
+    public ObservableCollection<Inspection> TodaysInspections { get; set; }
 
     public DashboardViewModel()
     {
-        TodaysInspections = new ObservableCollection<InspectionItem>
+        TodaysInspections = new ObservableCollection<Inspection>
         {
-            new InspectionItem
+            new Inspection
             {
                 Title = "Safety Equipment Check",
-                Site = "Building A",
+                SiteName = "Building A",
                 Status = "Pending",
-                ScheduledDate = DateTime.Today.AddHours(10).AddMinutes(30)
+                ScheduledOn = DateTime.Today.AddHours(10).AddMinutes(30)
             },
 
-            new InspectionItem
+            new Inspection
             {
                 Title = "Fire Extinguisher Inspection",
-                Site = "Building B",
+                SiteName = "Building B",
                 Status = "In Progress",
-                ScheduledDate = DateTime.Today.AddHours(12)
+                ScheduledOn = DateTime.Today.AddHours(12)
             },
 
-            new InspectionItem
+            new Inspection
             {
                 Title = "Electrical Inspection",
-                Site = "Building C",
+                SiteName = "Building C",
                 Status = "Completed",
-                ScheduledDate = DateTime.Today.AddHours(14).AddMinutes(30)
+                ScheduledOn = DateTime.Today.AddHours(14).AddMinutes(30)
             }
         };
     }

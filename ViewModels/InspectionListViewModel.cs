@@ -4,94 +4,136 @@ using EmployeeManagementMAUI.Models;
 
 namespace EmployeeManagementMAUI.ViewModels;
 
-public class InspectionListViewModel
+public class InspectionListViewModel : BaseViewModel
 {
     // Holds all inspection records displayed in both list pages
-    public ObservableCollection<InspectionItem> Inspections { get; set; }
+    public ObservableCollection<Inspection> Inspections { get; set; }
 
     public InspectionListViewModel()
     {
         //observable colletion - list which notify the ui when items are added or removed
-        Inspections = new ObservableCollection<InspectionItem>
+        Inspections = new ObservableCollection<Inspection>
         {
-            new InspectionItem
+            new Inspection
             {
-                Title = "Safety Equipment Check",
-                Site = "Building A",
+                Id = 1,
+                Title = "Safety Equipment Check",               
+                SiteName = "Building A",
                 Status = "Pending",
-                ScheduledDate = DateTime.Today.AddHours(10).AddMinutes(30)
+                Priority = "High",
+                ScheduledOn = DateTime.Today.AddHours(10).AddMinutes(30),
+                InspectorName = "Arjun",
+                Notes = "Check Safety"
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 2,
                 Title = "Fire Extinguisher Inspection",
-                Site = "Building B",
+                SiteName = "Building B",
                 Status = "In Progress",
-                ScheduledDate = DateTime.Today.AddHours(12)
+                Priority = "Low",
+                ScheduledOn= DateTime.Today.AddHours(12),                                
+                InspectorName = "Arjeet",
+                Notes = "Check fire extinguishers and add new eqipments"
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 3,
                 Title = "Electrical Safety Inspection",
-                Site = "Building C",
+                SiteName  = "Building C",
                 Status = "Completed",
-                ScheduledDate = DateTime.Today.AddHours(14)
+                Priority = "Medium",
+                ScheduledOn = DateTime.Today.AddHours(14),
+                InspectorName = "Boby",
+                
+
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 4,
                 Title = "Emergency Exit Inspection",
-                Site = "Building D",
+                SiteName = "Building D",
                 Status = "Pending",
-                ScheduledDate = DateTime.Today.AddDays(1).AddHours(9)
+                Priority = "High",
+                ScheduledOn = DateTime.Today.AddDays(1).AddHours(9),
+                InspectorName = "Chetan",
+                Notes = "Add proper sign boards"
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 5,
                 Title = "Fire Alarm System Check",
-                Site = "Building E",
+                SiteName = "Building E",
                 Status = "In Progress",
-                ScheduledDate = DateTime.Today.AddDays(1).AddHours(11)
+                Priority = "Low",
+                ScheduledOn = DateTime.Today.AddDays(1).AddHours(11),
+                InspectorName = "Parth", 
+                Notes = "check alarms",
+                
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 6,
                 Title = "Electrical Panel Inspection",
-                Site = "Building F",
+                SiteName = "Building F",
                 Status = "Completed",
-                ScheduledDate = DateTime.Today.AddDays(1).AddHours(15)
+                ScheduledOn = DateTime.Today.AddDays(1).AddHours(15),
+                Notes = "",
+                Priority = "Medium",
+                InspectorName = "Rahul"
+                
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 7,
                 Title = "Workplace Safety Audit",
-                Site = "Building G",
+                SiteName = "Building G",
                 Status = "Pending",
-                ScheduledDate = DateTime.Today.AddDays(2).AddHours(10)
+                Priority = "Low",
+                InspectorName = "Amit",
+                Notes = "Check safety",
+                ScheduledOn = DateTime.Today.AddDays(2).AddHours(10)
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 8,
                 Title = "Equipment Maintenance Check",
-                Site = "Building H",
+                SiteName = "Building H",
                 Status = "In Progress",
-                ScheduledDate = DateTime.Today.AddDays(2).AddHours(13)
+                Priority = "High",
+                ScheduledOn = DateTime.Today.AddDays(2).AddHours(13),
+                InspectorName = "Dev",
+                Notes = "Check gears"
             },
 
-            new InspectionItem
-            {
+            new Inspection
+            {   Id = 9,
                 Title = "Emergency Lighting Check",
-                Site = "Building I",
+                SiteName = "Building I",
                 Status = "Completed",
-                ScheduledDate = DateTime.Today.AddDays(3).AddHours(9)
+                Priority = "Low",
+                InspectorName = "Harsh",
+                Notes = "check connections",
+                ScheduledOn = DateTime.Today.AddDays(3).AddHours(9)
             },
 
-            new InspectionItem
+            new Inspection
             {
+                Id = 10,
                 Title = "Building Security Inspection",
-                Site = "Building J",
+                SiteName = "Building J",
                 Status = "Pending",
-                ScheduledDate = DateTime.Today.AddDays(3).AddHours(14)
+                InspectorName = "Keshav",
+                Notes = "Check lifts",
+                Priority = "High",
+                ScheduledOn = DateTime.Today.AddDays(3).AddHours(14)
             }
         };
     }

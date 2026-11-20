@@ -250,7 +250,7 @@
                         Spacing="{StaticResource SpacingLarge}">
 
                         <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="models:InspectionItem">
+                            <DataTemplate x:DataType="models:Inspection">
 
                                 <!--
                                     CardTemplate wraps the card in the shared white-surface Border with
@@ -282,7 +282,7 @@
                                         <Label Grid.Row="1"
                                                Grid.Column="0"
                                                Grid.ColumnSpan="2"
-                                               Text="{Binding Site, StringFormat='Site: {0}'}"
+                                               Text="{Binding SiteName, StringFormat='Site: {0}'}"
                                                FontSize="{StaticResource FontSizeSmall}"
                                                TextColor="{StaticResource TextSecondary}" />
 
@@ -290,7 +290,7 @@
                                         <Label Grid.Row="2"
                                                Grid.Column="0"
                                                Grid.ColumnSpan="2"
-                                               Text="{Binding ScheduledDate, StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
+                                               Text="{Binding ScheduledOn, StringFormat='{}{0:dd MMM yyyy, hh:mm tt}'}"
                                                FontSize="{StaticResource FontSizeSmall}"
                                                TextColor="{StaticResource TextSecondary}" />
 

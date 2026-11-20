@@ -13,6 +13,9 @@ public class StatusToBackgroundConverter : IValueConverter
         return (value as string) switch
         {
             "Pending"     => Color.FromArgb("#FEF3C7"),  // amber-100
+            "High" => Color.FromArgb("#FEE2E2"),
+            "Medium" => Color.FromArgb("#FEF3C7"),
+            "Low" => Color.FromArgb("#DCFCE7"),
             "In Progress" => Color.FromArgb("#EDE9FE"),  // violet-100
             "Completed"   => Color.FromArgb("#DCFCE7"),  // green-100
             _             => Color.FromArgb("#F1F5F9")   // slate-100 fallback

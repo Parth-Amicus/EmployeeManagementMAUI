@@ -108,7 +108,7 @@ Below are the observed window lifecycle events during testing and their practica
 
 #### Shared Data Setup
 Both implementations share the exact same underlying data layer to ensure a direct comparison:
-* **Model & ViewModel:** Powered by the shared `InspectionItem` model and `InspectionListViewModel`.
+* **Model & ViewModel:** Powered by the shared `Inspection` model and `InspectionListViewModel`.
 * **Dataset:** Uses 10 hardcoded inspection records, each containing a **Title**, **Site**, **Status**, and **Scheduled Date**.
 
 #### Implementation Details

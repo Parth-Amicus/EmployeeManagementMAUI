@@ -5,7 +5,7 @@ using EmployeeManagementMAUI.Models;
 
 namespace EmployeeManagementMAUI.ViewModels;
 
-public class InspectorProfileViewModel
+public class InspectorProfileViewModel : BaseViewModel
 {
     // Holds the inspector information displayed on the page
     public Inspector Inspector { get; set; }

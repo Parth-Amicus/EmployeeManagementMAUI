@@ -45,7 +45,7 @@ public partial class InspectionListPage : ContentPage
         var filteredInspections = _viewModel.Inspections
             .Where(inspection =>
                 (inspection.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
-                 inspection.Site.Contains(searchText, StringComparison.OrdinalIgnoreCase)) &&
+                 inspection.SiteName.Contains(searchText, StringComparison.OrdinalIgnoreCase)) &&
                 (selectedStatus == "All" || inspection.Status == selectedStatus))
             .ToList();
 
