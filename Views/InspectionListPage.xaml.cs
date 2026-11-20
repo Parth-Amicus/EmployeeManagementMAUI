@@ -51,4 +51,5 @@ public partial class InspectionListPage : ContentPage
 
         InspectionCollection.ItemsSource = filteredInspections;
     }
+   
 }

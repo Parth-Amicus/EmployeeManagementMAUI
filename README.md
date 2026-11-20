@@ -133,3 +133,20 @@ Both implementations share the exact same underlying data layer to ensure a dire
 * **Learning Outcome:** `ListView` was implemented alongside it to understand legacy Xamarin.Forms/MAUI patterns and contrast them with modern best practices.
 
 ---
+
+## Data Binding & Collections (`ObservableCollection` vs. `List`)
+
+To keep the UI synchronized with dynamic data changes, the application uses `ObservableCollection<T>` instead of a standard `List<T>` for data-bound collections.
+
+For example, `InspectionListViewModel` stores inspection records in an `ObservableCollection<Inspection>`, which `InspectionListPage` binds to its `CollectionView` via `ItemsSource="{Binding Inspections}"`.
+
+### Experiment & Runtime Behavior
+
+| Collection Type | Runtime Behavior |
+| :--- | :--- |
+| **`ObservableCollection<Inspection>`** | Raises a change notification whenever an inspection is added or removed, causing the `CollectionView` to update automatically. |
+| **`List<Inspection>`** | Does not notify the UI when items are added or removed, leaving the `CollectionView` out of sync until manually refreshed. |
+
+### Key Takeaway
+* **`ObservableCollection<T>`** implements `INotifyCollectionChanged` and `INotifyPropertyChanged`, making it ideal for dynamic MAUI UI bindings where items are added, removed, or reset at runtime.
+* **`List<T>`** lacks change notifications and is best reserved for static data or internal logic where the UI does not need to react to collection modifications without reassigning `ItemsSource`.

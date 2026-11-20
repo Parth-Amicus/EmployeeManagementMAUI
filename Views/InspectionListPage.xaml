@@ -17,6 +17,7 @@
     <Grid RowDefinitions="Auto,*"
           Padding="{StaticResource SpacingPage}"
           RowSpacing="{StaticResource SpacingCard}">
+        
 
         <!-- Page Heading -->
 
@@ -129,7 +130,7 @@
                                    Grid.Column="1"
                                    Status="{Binding Status}"
                                    VerticalOptions="Center" />
-                            
+
                             <!--prority-->
                             <controls:StatusBadge
                                    Grid.Row="0"
@@ -146,7 +147,7 @@
                                           StringFormat='Site: {0}'}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
-                            
+
 
                             <!-- Scheduled Date -->
                             <Label Grid.Row="2"
@@ -164,7 +165,7 @@
                                    Text="{Binding InspectorName,StringFormat='Inspector: {0}'}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
-                            
+
                             <!--Auto-->
                             <Label Grid.Row="3"
                                    Grid.Column="0"
@@ -174,15 +175,18 @@
                                    TextColor="{StaticResource TextSecondary}" />
 
 
-
-
-
                         </Grid>
+
+
                     </ContentView>
+
+
+
 
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
         </CollectionView>
     </Grid>
+    
 </ContentPage>
