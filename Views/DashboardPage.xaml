@@ -82,14 +82,9 @@
 
         </Grid>
 
-        <!-- Pull-to-refresh wrapper for dashboard inspection content -->
-        <RefreshView Grid.Row="1"
-                 Grid.Column="1"
-                 Command="{Binding RefreshTodaysInspectionsCommand}"
-                 IsRefreshing="{Binding IsRefreshing}">
-
         <!-- Scrollable Dashboard Content -->
-        <ScrollView>
+        <ScrollView Grid.Row="1"
+                    Grid.Column="1">
 
             <VerticalStackLayout
                 Spacing="{StaticResource SpacingDashboardSection}"
@@ -265,10 +260,6 @@
                                 <ContentView ControlTemplate="{StaticResource CardTemplate}"
                                              Padding="{StaticResource InspectionCardPadding}">
 
-                                    <ContentView.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnTodayInspectionTapped" />
-                                    </ContentView.GestureRecognizers>
-
                                     <Grid ColumnDefinitions="*,Auto"
                                           RowDefinitions="Auto,Auto,Auto"
                                           RowSpacing="{StaticResource SpacingMedium}">
@@ -316,7 +307,6 @@
 
             </VerticalStackLayout>
         </ScrollView>
-        </RefreshView>
 
     </Grid>
 </ContentPage>
