@@ -2,12 +2,14 @@
 using System.Collections.ObjectModel;
 
 using EmployeeManagementMAUI.Models;
+using EmployeeManagementMAUI.ViewModels.Commands;
 
 
 namespace EmployeeManagementMAUI.ViewModels;
 
 public class InspectionListViewModel : BaseViewModel
 {
+    private AsyncRelayCommand? _loadInspectionsCommand;
     private bool _hasSearchResults;
 
     public bool HasSearchResults
@@ -53,9 +55,15 @@ public class InspectionListViewModel : BaseViewModel
         set
         {
             if (SetProperty(ref _isBusy, value))
+            {
                 OnPropertyChanged(nameof(ShowEmptyState));
+                _loadInspectionsCommand?.NotifyCanExecuteChanged();
+            }
         }
     }
+
+    public AsyncRelayCommand LoadInspectionsCommand =>
+        _loadInspectionsCommand ??= new AsyncRelayCommand(LoadInspectionAsync, () => !IsBusy);
 
 
     public InspectionListViewModel()
@@ -65,8 +73,8 @@ public class InspectionListViewModel : BaseViewModel
 
         FilteredInspections = new ObservableCollection<Inspection>();
 
-        //loading the inspection
-        _ =LoadInspectionAsync(); // because returning a task
+        // Start the first load through the command pipeline so re-entry protection is used consistently.
+        LoadInspectionsCommand.Execute(null);
 
     }
 

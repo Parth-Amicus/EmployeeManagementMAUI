@@ -1,6 +1,8 @@
 ﻿
 using System.Net.Mail;
 
+using EmployeeManagementMAUI.ViewModels.Commands;
+
 namespace EmployeeManagementMAUI.ViewModels;
 
 public class LoginViewModel : BaseViewModel
@@ -20,6 +22,7 @@ public class LoginViewModel : BaseViewModel
             {
                 ValidateEmail();
                 OnPropertyChanged(nameof(IsLoginEnabled)); // whenever email changes we notify the ui to recalculate isLoginEnabled
+                LoginCommand.NotifyCanExecuteChanged();
                 LoginMessage = string.Empty;
             }
         }
@@ -34,6 +37,7 @@ public class LoginViewModel : BaseViewModel
             {
                 ValidatePassword();
                 OnPropertyChanged(nameof(IsLoginEnabled));
+                LoginCommand.NotifyCanExecuteChanged();
                 LoginMessage = string.Empty;
             }
         }
@@ -64,11 +68,11 @@ public class LoginViewModel : BaseViewModel
         string.IsNullOrEmpty(EmailError) &&
         string.IsNullOrEmpty(PasswordError);
 
-    public Command LoginCommand { get; }
+    public AsyncRelayCommand LoginCommand { get; }
 
     public LoginViewModel()
     {
-        LoginCommand = new Command(async () => await LoginAsync());
+        LoginCommand = new AsyncRelayCommand(LoginAsync, () => IsLoginEnabled);
     }
 
     private void ValidateEmail()

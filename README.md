@@ -197,3 +197,28 @@ MVVM separates application logic from the user interface. This makes the applica
 
 * **OneWay (`Source → Target`):** Data flows strictly from the ViewModel or Model to the UI. This is used when the interface only needs to display read-only information. For example, an inspection's `Title` comes from the Model and is displayed in a `Label`—the user cannot edit the title directly through that control.
 * **TwoWay (`Source ↔ Target`):** Data flows in both directions. This is used when user interaction updates the underlying state, and programmatic state changes must also reflect in the UI. For example, typing in the Search `Entry` updates the ViewModel's `SearchText` property, while clearing or modifying `SearchText` in the ViewModel automatically updates the text displayed in the `Entry`.
+
+---
+
+## Command Re-Entry Protection (Double-Tap Behavior)
+
+The app now uses custom command types:
+
+* `RelayCommand` for synchronous actions with `CanExecute`.
+* `AsyncRelayCommand` for asynchronous actions with both `CanExecute` and in-flight execution guarding.
+
+`LoginViewModel` and `InspectionListViewModel` both use `AsyncRelayCommand` so a second tap while the first execution is still running is ignored.
+
+### What Happens If User Taps Login Twice Quickly?
+
+| Scenario | Runtime Result |
+| :--- | :--- |
+| **Without protection** (`Command(async () => ...)`) | Both taps can queue execution. The login logic may run twice, and navigation can be triggered multiple times almost simultaneously. |
+| **With `AsyncRelayCommand` protection** | First tap starts login and marks command as executing. During execution, `CanExecute` becomes false, so the second tap is ignored. Only one login flow runs and only one navigation attempt is made. |
+
+### What Happens If User Taps Reload Inspections Twice Quickly?
+
+| Scenario | Runtime Result |
+| :--- | :--- |
+| **Without protection** | Two load operations can start close together, causing duplicate work and possible duplicate list entries if both add data. |
+| **With `AsyncRelayCommand` protection** | First tap starts loading. While loading, command `CanExecute` is false. Additional taps are ignored until loading completes. |

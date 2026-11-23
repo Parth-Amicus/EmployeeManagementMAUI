@@ -87,8 +87,7 @@
                     <Button
                         Text="Login"
                         Style="{StaticResource PrimaryButtonStyle}"
-                        Command="{Binding LoginCommand}"
-                        IsEnabled="{Binding IsLoginEnabled}" />
+                        Command="{Binding LoginCommand}" />
 
                     <!-- Login result message -->
                     <Label

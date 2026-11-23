@@ -33,6 +33,10 @@
                        TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
 
+                    <Button Text="Reload inspections"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding LoadInspectionsCommand}" />
+
 
             <!-- Entry control for searching inspections -->
             <Entry x:Name="SearchEntry"
