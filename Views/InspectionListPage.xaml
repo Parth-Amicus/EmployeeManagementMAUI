@@ -67,16 +67,10 @@
         </VerticalStackLayout>
 
 
-        <!-- Shows loading progress while inspections are being loaded -->
-        <ActivityIndicator Grid.Row="1"
-                   IsRunning="{Binding IsBusy}"
-                   IsVisible="{Binding IsBusy}"
-                   Color="{StaticResource Primary}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
+        <!-- RefreshView owns the loading indicator for pull-to-refresh and reload actions. -->
         <RefreshView Grid.Row="2"
                      Command="{Binding LoadInspectionsCommand}"
-                     IsRefreshing="{Binding IsBusy}">
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
 
             <Grid>
 
