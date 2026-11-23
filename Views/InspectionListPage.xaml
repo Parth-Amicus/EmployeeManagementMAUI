@@ -74,24 +74,29 @@
                    Color="{StaticResource Primary}"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
-        <!-- Empty state message when no search results are found -->
-        <Label Grid.Row="2"
-       Text="No inspections found"
-       TextColor="{StaticResource TextSecondary}"
-       HorizontalOptions="Center"
-       VerticalOptions="Center"
-       IsVisible="{Binding ShowEmptyState,
-                   Converter={StaticResource InverseBooleanConverter}}" />
+        <RefreshView Grid.Row="2"
+                     Command="{Binding LoadInspectionsCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+
+            <Grid>
+
+                <!-- Empty state message when no search results are found -->
+                <Label Text="No inspections found"
+                       TextColor="{StaticResource TextSecondary}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       IsVisible="{Binding ShowEmptyState,
+                                   Converter={StaticResource InverseBooleanConverter}}" />
 
 
-        <!-- CollectionView -->
-        <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
-        <!-- selectionMode = "single" defines only one item can be selected-->
-        <CollectionView Grid.Row="2"
-                        x:Name="InspectionCollection"
-                        ItemsSource="{Binding FilteredInspections}"
-                        SelectionMode="Single"
-                        VerticalScrollBarVisibility="Never">
+                <!-- CollectionView -->
+                <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
+                <!-- selectionMode = "single" defines only one item can be selected-->
+                <CollectionView x:Name="InspectionCollection"
+                                ItemsSource="{Binding FilteredInspections}"
+                                SelectionMode="Single"
+                                SelectionChanged="OnInspectionSelectionChanged"
+                                VerticalScrollBarVisibility="Never">
 
             <!-- <CollectionView.EmptyView>
                 <Label Text="No inspections available"
@@ -210,7 +215,11 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
-        </CollectionView>
+                </CollectionView>
+
+            </Grid>
+
+        </RefreshView>
     </Grid>
     
 </ContentPage>

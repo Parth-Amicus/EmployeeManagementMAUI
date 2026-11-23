@@ -1,5 +1,4 @@
 
-using EmployeeManagementMAUI.Models;
 using EmployeeManagementMAUI.ViewModels;
 
 namespace EmployeeManagementMAUI.Views;
@@ -51,5 +50,15 @@ public partial class InspectionListPage : ContentPage
 
     //    InspectionCollection.ItemsSource = filteredInspections;
     //}
+
+    private void OnInspectionSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+      // This behavior needs an event because we rely on SelectionChangedEventArgs and
+      // immediate view-level deselection (CollectionView.SelectedItem), which is UI plumbing.
+      if (sender is CollectionView collectionView && e.CurrentSelection.Count > 0)
+      {
+        collectionView.SelectedItem = null;
+      }
+    }
 
 }

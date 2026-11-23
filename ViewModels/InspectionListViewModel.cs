@@ -86,6 +86,7 @@ public class InspectionListViewModel : BaseViewModel
         {
             IsBusy = true;
             await Task.Delay(2000);
+            Inspections.Clear();
             foreach(var inspection in GetSampleInspection ())
             {
                 Inspections.Add
