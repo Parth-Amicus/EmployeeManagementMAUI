@@ -36,19 +36,20 @@
 
             <!-- Entry control for searching inspections -->
             <Entry x:Name="SearchEntry"
-                   Placeholder="Search by title or site"
+                   Placeholder="Search by title, inspector or site"
                    BackgroundColor="{StaticResource Surface}"
+                   Text="{Binding SearchText, Mode=TwoWay}"
                    TextColor="{StaticResource TextPrimary}"
                    PlaceholderColor="{StaticResource TextMuted}"
                    ClearButtonVisibility="WhileEditing"
-                   TextChanged="OnSearchTextChanged" />
+                   />
 
             <!-- Picker control for filtering by status -->
             <Picker x:Name="StatusPicker"
                     Title="Filter by status"
                     BackgroundColor="{StaticResource Surface}"
                     TextColor="{StaticResource TextPrimary}"
-                    SelectedIndexChanged="OnStatusChanged">
+                    >
 
                 <Picker.Items>
                     <x:String>All</x:String>
@@ -76,7 +77,7 @@
         <!-- selectionMode = "single" defines only one item can be selected-->
         <CollectionView Grid.Row="2"
                         x:Name="InspectionCollection"
-                        ItemsSource="{Binding Inspections}"
+                        ItemsSource="{Binding FilteredInspections}"
                         SelectionMode="Single"
                         VerticalScrollBarVisibility="Never">
 

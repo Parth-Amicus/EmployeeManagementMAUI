@@ -8,6 +8,24 @@ namespace EmployeeManagementMAUI.ViewModels;
 
 public class InspectionListViewModel : BaseViewModel
 {
+
+    private string _searchText = string.Empty;
+    // will hold the inspection that matches search 
+    public ObservableCollection<Inspection> FilteredInspections { get; set; }
+
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if(SetProperty(ref _searchText, value))
+            {
+                ApplySearchFilter();
+            }
+        }
+    }
+
+
     // Holds all inspection records displayed in both list pages
     public ObservableCollection<Inspection> Inspections { get; set; }
     private bool _isBusy;
@@ -16,12 +34,16 @@ public class InspectionListViewModel : BaseViewModel
         get => _isBusy;
         set => SetProperty(ref _isBusy, value); // base view model provides this 
     }
+    
+    
     public InspectionListViewModel()
     {
         // list which will notify the ui when items are added
         Inspections = new ObservableCollection<Inspection>(); // firstly initialize the empty list because we want to add item after delay
         //loading the inspection
         _ =LoadInspectionAsync(); // because returning a task
+        FilteredInspections = new ObservableCollection<Inspection>();
+
     }
 
     public async Task LoadInspectionAsync()
@@ -37,6 +59,7 @@ public class InspectionListViewModel : BaseViewModel
                 Inspections.Add
                     (inspection);
             }
+            ApplySearchFilter();
         }
         finally
         {
@@ -170,5 +193,25 @@ public class InspectionListViewModel : BaseViewModel
                 ScheduledOn = DateTime.Today.AddDays(3).AddHours(14)
             }
         };
+    }
+
+    private void ApplySearchFilter()
+    {
+        // Clear the previous search results
+        FilteredInspections.Clear();
+
+        // Find inspections matching the search text
+        var filteredItems = Inspections.Where(inspection =>
+            string.IsNullOrWhiteSpace(SearchText) ||
+            inspection.Title.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+            inspection.SiteName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+            inspection.InspectorName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+        );
+
+        // Add matching inspections to the collection displayed by the UI
+        foreach (var inspection in filteredItems)
+        {
+            FilteredInspections.Add(inspection);
+        }
     }
 }

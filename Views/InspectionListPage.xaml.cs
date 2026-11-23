@@ -24,16 +24,16 @@ public partial class InspectionListPage : ContentPage
     }
 
     // Called whenever the user types in the search Entry
-    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
-    {
-       // ApplyFilters();
-    }
+    //private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //   // ApplyFilters();
+    //}
 
     //// Called whenever the user selects a different status
-    private void OnStatusChanged(object sender, EventArgs e)
-    {
-        //ApplyFilters();
-    }
+    //private void OnStatusChanged(object sender, EventArgs e)
+    //{
+    //    //ApplyFilters();
+    //}
 
     //// Apply search and status filters to the inspection list
     //private void ApplyFilters()
