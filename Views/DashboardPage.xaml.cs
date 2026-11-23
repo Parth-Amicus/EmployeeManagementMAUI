@@ -33,4 +33,17 @@ public partial class DashboardPage : ContentPage
     {
         await Shell.Current.GoToAsync("inspections");
     }
+
+    private async void OnTodayInspectionTapped(object? sender, TappedEventArgs e)
+    {
+        // This behavior is event-based (instead of command-based) because it needs
+        // direct access to the tapped view instance for a transient UI animation.
+        if (sender is not VisualElement card)
+        {
+            return;
+        }
+
+        await card.ScaleTo(0.98, 70);
+        await card.ScaleTo(1.0, 90);
+    }
 }
