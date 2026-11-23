@@ -176,3 +176,24 @@ When the InspectionListPage is initialized, the ViewModel starts loading inspect
 ### Why MVVM?
 
 MVVM separates application logic from the user interface. This makes the application easier to maintain, test and extend. The ViewModel can manage data and operations without directly accessing UI controls.
+
+
+## Data Binding Reference
+
+| Control | Property | Binding | Mode | Direction |
+| :--- | :--- | :--- | :--- | :--- |
+| **Search Entry** | `Text` | `SearchText` | `TwoWay` | View ↔ ViewModel |
+| **CollectionView** | `ItemsSource` | `FilteredInspections` | `OneWay` | ViewModel → View |
+| **ActivityIndicator** | `IsRunning` | `IsBusy` | `OneWay` | ViewModel → View |
+| **ActivityIndicator** | `IsVisible` | `IsBusy` | `OneWay` | ViewModel → View |
+| **Title Label** | `Text` | `Title` | `OneWay` | Model → View |
+| **Site Name Label** | `Text` | `SiteName` | `OneWay` | Model → View |
+| **StatusBadge** | `Status` | `Status` | `OneWay` | Model → View |
+| **StatusBadge** | `Priority` | `Priority` | `OneWay` | Model → View |
+
+---
+
+## Binding Modes Explained
+
+* **OneWay (`Source → Target`):** Data flows strictly from the ViewModel or Model to the UI. This is used when the interface only needs to display read-only information. For example, an inspection's `Title` comes from the Model and is displayed in a `Label`—the user cannot edit the title directly through that control.
+* **TwoWay (`Source ↔ Target`):** Data flows in both directions. This is used when user interaction updates the underlying state, and programmatic state changes must also reflect in the UI. For example, typing in the Search `Entry` updates the ViewModel's `SearchText` property, while clearing or modifying `SearchText` in the ViewModel automatically updates the text displayed in the `Entry`.
