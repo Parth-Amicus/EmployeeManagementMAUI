@@ -9,6 +9,11 @@
     
     Title="EmployeeManagementMAUI">
 
+    <ShellContent
+        Route="login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Shell.FlyoutItemIsVisible="False" />
+
     <!--
         Root page — Dashboard.
         NavBarIsVisible="False" hides the Shell chrome so DashboardPage

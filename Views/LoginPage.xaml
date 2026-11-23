@@ -1,0 +1,139 @@
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    x:Class="EmployeeManagementMAUI.Views.LoginPage"
+    x:DataType="vm:LoginViewModel"
+    Title="Login"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="{StaticResource SpacingPage}"
+            Spacing="{StaticResource SpacingMainContent}"
+            VerticalOptions="Center">
+
+            <!-- Login heading -->
+            <VerticalStackLayout
+                Spacing="{StaticResource SpacingMedium}"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="Welcome Back!"
+                    Style="{StaticResource PageTitleLabelStyle}"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Sign in to continue"
+                    FontSize="{StaticResource FontSizeBody}"
+                    TextColor="{StaticResource TextSecondary}"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+            <!-- Login form card -->
+            <Border
+                Style="{StaticResource CardBorderStyle}"
+                Padding="{StaticResource ProfileCardPadding}"
+                HorizontalOptions="Center"
+                WidthRequest="400">
+
+                <VerticalStackLayout Spacing="{StaticResource SpacingExtraLarge}">
+
+                    <!-- Email -->
+                    <VerticalStackLayout Spacing="{StaticResource SpacingSmall}">
+                        <Label
+                            Text="Email Address"
+                            FontFamily="{StaticResource SemiboldFont}"
+                            FontSize="{StaticResource FontSizeBody}" />
+
+                        <Entry
+                            Placeholder="Enter your email"
+                            Keyboard="Email"
+                            BackgroundColor="{StaticResource PageBackground}"
+                            TextColor="{StaticResource TextPrimary}"
+                            PlaceholderColor="{StaticResource TextMuted}"
+                            Text="{Binding Email, Mode=TwoWay}" />
+
+                        <Label
+                            Text="{Binding EmailError}"
+                            TextColor="{StaticResource PriorityHighText}"
+                            FontSize="{StaticResource FontSizeCaption}" />
+                    </VerticalStackLayout>
+
+                    <!-- Password -->
+                    <VerticalStackLayout Spacing="{StaticResource SpacingSmall}">
+                        <Label
+                            Text="Password"
+                            FontFamily="{StaticResource SemiboldFont}"
+                            FontSize="{StaticResource FontSizeBody}" />
+
+                        <Entry
+                            Placeholder="Enter your password"
+                            IsPassword="True"
+                            BackgroundColor="{StaticResource PageBackground}"
+                            TextColor="{StaticResource TextPrimary}"
+                            PlaceholderColor="{StaticResource TextMuted}"
+                            Text="{Binding Password, Mode=TwoWay}" />
+
+                        <Label
+                            Text="{Binding PasswordError}"
+                            TextColor="{StaticResource PriorityHighText}"
+                            FontSize="{StaticResource FontSizeCaption}" />
+                    </VerticalStackLayout>
+
+                    <!-- Login button -->
+                    <Button
+                        Text="Login"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsLoginEnabled}" />
+
+                    <!-- Login result message -->
+                    <Label
+                        Text="{Binding LoginMessage}"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        FontFamily="{StaticResource SemiboldFont}"
+                        HorizontalTextAlignment="Center">
+
+                        <Label.Triggers>
+
+                            <!-- Success message
+                            triggers changes properties based on another property of the control
+                            data trigger - checks conditions for this label
+                           target type -  Specifies which control the trigger affects
+                            value - condition that must match
+                            
+                            -->
+                            <DataTrigger
+                                TargetType="Label" 
+                                Binding="{Binding LoginMessage}"
+                                Value="Login successful!">
+
+                                <Setter
+                                    Property="TextColor"
+                                    Value="{StaticResource StatusCompleted}" />
+                            </DataTrigger>
+
+                            <!-- Failure message -->
+                            <DataTrigger
+                                TargetType="Label"
+                                Binding="{Binding LoginMessage}"
+                                Value="Invalid email or password">
+
+                                <Setter
+                                    Property="TextColor"
+                                    Value="{StaticResource PriorityHighText}" />
+                            </DataTrigger>
+
+                        </Label.Triggers>
+                    </Label>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
