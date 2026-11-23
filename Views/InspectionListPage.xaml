@@ -33,11 +33,6 @@
                        TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
 
-                    <Button Text="Reload inspections"
-                        Style="{StaticResource PrimaryButtonStyle}"
-                        Command="{Binding LoadInspectionsCommand}" />
-
-
             <!-- Entry control for searching inspections -->
             <Entry x:Name="SearchEntry"
                    Placeholder="Search by title, inspector or site"
@@ -75,8 +70,8 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
         <RefreshView Grid.Row="2"
-                     Command="{Binding LoadInspectionsCommand}"
-                     IsRefreshing="{Binding IsBusy}">
+                 Command="{Binding RefreshInspectionsCommand}"
+                 IsRefreshing="{Binding IsRefreshing}">
 
             <Grid>
 

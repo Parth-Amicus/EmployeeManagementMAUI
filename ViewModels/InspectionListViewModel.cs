@@ -10,7 +10,9 @@ namespace EmployeeManagementMAUI.ViewModels;
 public class InspectionListViewModel : BaseViewModel
 {
     private AsyncRelayCommand? _loadInspectionsCommand;
+    private AsyncRelayCommand? _refreshInspectionsCommand;
     private bool _hasSearchResults;
+    private bool _isRefreshing;
 
     public bool HasSearchResults
     {
@@ -25,6 +27,12 @@ public class InspectionListViewModel : BaseViewModel
     // Empty state appears only when loading is complete
     // and no matching inspections are available
     public bool ShowEmptyState => !IsBusy && !HasSearchResults;
+
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set => SetProperty(ref _isRefreshing, value);
+    }
 
     private string _searchText = string.Empty;
 
@@ -65,6 +73,9 @@ public class InspectionListViewModel : BaseViewModel
     public AsyncRelayCommand LoadInspectionsCommand =>
         _loadInspectionsCommand ??= new AsyncRelayCommand(LoadInspectionAsync, () => !IsBusy);
 
+    public AsyncRelayCommand RefreshInspectionsCommand =>
+        _refreshInspectionsCommand ??= new AsyncRelayCommand(RefreshInspectionsAsync, () => !IsBusy);
+
 
     public InspectionListViewModel()
     {
@@ -97,6 +108,21 @@ public class InspectionListViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+        }
+    }
+
+    private async Task RefreshInspectionsAsync()
+    {
+        IsRefreshing = true;
+
+        try
+        {
+            // Reuse the same reload logic used by the explicit reload command path.
+            await LoadInspectionAsync();
+        }
+        finally
+        {
+            IsRefreshing = false;
         }
     }
 
