@@ -150,3 +150,29 @@ For example, `InspectionListViewModel` stores inspection records in an `Observab
 ### Key Takeaway
 * **`ObservableCollection<T>`** implements `INotifyCollectionChanged` and `INotifyPropertyChanged`, making it ideal for dynamic MAUI UI bindings where items are added, removed, or reset at runtime.
 * **`List<T>`** lacks change notifications and is best reserved for static data or internal logic where the UI does not need to react to collection modifications without reassigning `ItemsSource`.
+
+
+
+## MVVM Responsibilities in EmployeeManagementMAUI
+
+The application follows the Model-View-ViewModel (MVVM) architectural pattern.
+
+| Component | Responsibility | Implementation in this application |
+|---|---|---|
+| Model | Represents the application's data. Contains properties describing an inspection. | `Inspection.cs` contains Id, Title, SiteName, Status, Priority, ScheduledOn, InspectorName and Notes. |
+| View | Represents the user interface. Displays data and provides controls for user interaction. | `InspectionListPage.xaml` displays inspection cards using CollectionView and shows loading progress using ActivityIndicator. |
+| ViewModel | Acts as a connection between the Model and View. Holds presentation data, manages operations and notifies the View when properties change. | `InspectionListViewModel.cs` maintains the ObservableCollection, manages IsBusy and loads inspections asynchronously. |
+
+### Simulated Loading
+
+When the InspectionListPage is initialized, the ViewModel starts loading inspections.
+
+1. IsBusy is set to true.
+2. Task.Delay(2000) simulates a two-second data-loading operation.
+3. Inspection records are added to the ObservableCollection.
+4. IsBusy is set to false.
+5. The ActivityIndicator stops automatically through data binding.
+
+### Why MVVM?
+
+MVVM separates application logic from the user interface. This makes the application easier to maintain, test and extend. The ViewModel can manage data and operations without directly accessing UI controls.

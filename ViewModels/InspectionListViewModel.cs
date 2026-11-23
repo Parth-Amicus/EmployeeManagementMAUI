@@ -1,6 +1,8 @@
 ﻿
 using System.Collections.ObjectModel;
+
 using EmployeeManagementMAUI.Models;
+
 
 namespace EmployeeManagementMAUI.ViewModels;
 
@@ -8,16 +10,48 @@ public class InspectionListViewModel : BaseViewModel
 {
     // Holds all inspection records displayed in both list pages
     public ObservableCollection<Inspection> Inspections { get; set; }
-
+    private bool _isBusy;
+    public bool IsBusy
+    {
+        get => _isBusy;
+        set => SetProperty(ref _isBusy, value); // base view model provides this 
+    }
     public InspectionListViewModel()
     {
-        //observable colletion - list which notify the ui when items are added or removed
-        Inspections = new ObservableCollection<Inspection>
+        // list which will notify the ui when items are added
+        Inspections = new ObservableCollection<Inspection>(); // firstly initialize the empty list because we want to add item after delay
+        //loading the inspection
+        _ =LoadInspectionAsync(); // because returning a task
+    }
+
+    public async Task LoadInspectionAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            await Task.Delay(2000);
+            foreach(var inspection in GetSampleInspection ())
+            {
+                Inspections.Add
+                    (inspection);
+            }
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    private List<Inspection> GetSampleInspection()
+    {
+        return new List<Inspection>
         {
             new Inspection
             {
                 Id = 1,
-                Title = "Safety Equipment Check",               
+                Title = "Safety Equipment Check",
                 SiteName = "Building A",
                 Status = "Pending",
                 Priority = "High",
@@ -33,7 +67,7 @@ public class InspectionListViewModel : BaseViewModel
                 SiteName = "Building B",
                 Status = "In Progress",
                 Priority = "Low",
-                ScheduledOn= DateTime.Today.AddHours(12),                                
+                ScheduledOn= DateTime.Today.AddHours(12),
                 InspectorName = "Arjeet",
                 Notes = "Check fire extinguishers and add new eqipments"
             },
@@ -47,7 +81,7 @@ public class InspectionListViewModel : BaseViewModel
                 Priority = "Medium",
                 ScheduledOn = DateTime.Today.AddHours(14),
                 InspectorName = "Boby",
-                
+
 
             },
 
@@ -71,9 +105,9 @@ public class InspectionListViewModel : BaseViewModel
                 Status = "In Progress",
                 Priority = "Low",
                 ScheduledOn = DateTime.Today.AddDays(1).AddHours(11),
-                InspectorName = "Parth", 
+                InspectorName = "Parth",
                 Notes = "check alarms",
-                
+
             },
 
             new Inspection
@@ -86,7 +120,7 @@ public class InspectionListViewModel : BaseViewModel
                 Notes = "",
                 Priority = "Medium",
                 InspectorName = "Rahul"
-                
+
             },
 
             new Inspection

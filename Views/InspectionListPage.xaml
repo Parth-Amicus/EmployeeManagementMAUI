@@ -14,7 +14,7 @@
     BackgroundColor="{StaticResource PageBackground}"
     SafeAreaEdges="All">
 
-    <Grid RowDefinitions="Auto,*"
+    <Grid RowDefinitions="Auto,Auto,*"
           Padding="{StaticResource SpacingPage}"
           RowSpacing="{StaticResource SpacingCard}">
         
@@ -32,6 +32,7 @@
                        FontSize="{StaticResource FontSizeBody}"
                        TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
+
 
             <!-- Entry control for searching inspections -->
             <Entry x:Name="SearchEntry"
@@ -60,21 +61,31 @@
 
         </VerticalStackLayout>
 
+
+        <!-- Shows loading progress while inspections are being loaded -->
+        <ActivityIndicator Grid.Row="2"
+                   IsRunning="{Binding IsBusy}"
+                   IsVisible="{Binding IsBusy}"
+                   Color="{StaticResource Primary}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        
+        
         <!-- CollectionView -->
         <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
         <!-- selectionMode = "single" defines only one item can be selected-->
-        <CollectionView Grid.Row="1"
+        <CollectionView Grid.Row="2"
                         x:Name="InspectionCollection"
                         ItemsSource="{Binding Inspections}"
                         SelectionMode="Single"
                         VerticalScrollBarVisibility="Never">
 
-            <CollectionView.EmptyView>
+           <!-- <CollectionView.EmptyView>
                 <Label Text="No inspections available"
                        TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
-            </CollectionView.EmptyView>
+            </CollectionView.EmptyView> -->
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
