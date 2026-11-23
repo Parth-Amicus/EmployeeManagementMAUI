@@ -9,33 +9,44 @@ namespace EmployeeManagementMAUI.ViewModels;
 public class InspectionListViewModel : BaseViewModel
 {
     private bool _hasSearchResults;
-    public bool ShowEmptyState => !IsBusy && !HasSearchResults;
+
     public bool HasSearchResults
     {
         get => _hasSearchResults;
-        set => SetProperty(ref _hasSearchResults, value);
+        set
+        {
+            if (SetProperty(ref _hasSearchResults, value))
+                OnPropertyChanged(nameof(ShowEmptyState));
+        }
     }
 
+    // Empty state appears only when loading is complete
+    // and no matching inspections are available
+    public bool ShowEmptyState => !IsBusy && !HasSearchResults;
+
     private string _searchText = string.Empty;
-    // will hold the inspection that matches search 
+
+    // Holds inspections matching the search text
     public ObservableCollection<Inspection> FilteredInspections { get; set; }
 
+    // Stores the text entered by the user
     public string SearchText
     {
         get => _searchText;
         set
         {
-            if(SetProperty(ref _searchText, value))
+            if (SetProperty(ref _searchText, value))
             {
                 ApplySearchFilter();
             }
         }
     }
 
-
-    // Holds all inspection records displayed in both list pages
+    // Holds all inspection records
     public ObservableCollection<Inspection> Inspections { get; set; }
+
     private bool _isBusy;
+
     public bool IsBusy
     {
         get => _isBusy;

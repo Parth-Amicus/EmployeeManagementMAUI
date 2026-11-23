@@ -64,14 +64,22 @@
 
 
         <!-- Shows loading progress while inspections are being loaded -->
-        <ActivityIndicator Grid.Row="2"
+        <ActivityIndicator Grid.Row="1"
                    IsRunning="{Binding IsBusy}"
                    IsVisible="{Binding IsBusy}"
                    Color="{StaticResource Primary}"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
-        
-        
+        <!-- Empty state message when no search results are found -->
+        <Label Grid.Row="2"
+       Text="No inspections found"
+       TextColor="{StaticResource TextSecondary}"
+       HorizontalOptions="Center"
+       VerticalOptions="Center"
+       IsVisible="{Binding ShowEmptyState,
+                   Converter={StaticResource InverseBooleanConverter}}" />
+
+
         <!-- CollectionView -->
         <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
         <!-- selectionMode = "single" defines only one item can be selected-->
