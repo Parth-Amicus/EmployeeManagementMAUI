@@ -1,5 +1,6 @@
 ﻿
 using System.Net.Mail;
+using System.Diagnostics;
 
 using EmployeeManagementMAUI.ViewModels.Commands;
 
@@ -72,7 +73,10 @@ public class LoginViewModel : BaseViewModel
 
     public LoginViewModel()
     {
-        LoginCommand = new AsyncRelayCommand(LoginAsync, () => IsLoginEnabled);
+        LoginCommand = new AsyncRelayCommand(
+            LoginAsync,
+            () => IsLoginEnabled,
+            ex => LoginMessage = $"Login failed: {ex.Message}");
     }
 
     private void ValidateEmail()
@@ -101,9 +105,22 @@ public class LoginViewModel : BaseViewModel
             Password == "Password123")
         {
             LoginMessage = "Login successful!";
+            try
+            {
+                // Navigate to Dashboard after successful login
+                if (Shell.Current is null)
+                {
+                    LoginMessage = "Navigation unavailable right now. Please try again.";
+                    return;
+                }
 
-            // Navigate to Dashboard after successful login
-            await Shell.Current.GoToAsync("//dashboard");
+                await Shell.Current.GoToAsync("//dashboard");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Login] Navigation failed: {ex}");
+                LoginMessage = "Login succeeded, but navigation failed.";
+            }
         }
         else
         {
