@@ -81,7 +81,7 @@
                         SelectionMode="Single"
                         VerticalScrollBarVisibility="Never">
 
-           <!-- <CollectionView.EmptyView>
+            <!-- <CollectionView.EmptyView>
                 <Label Text="No inspections available"
                        TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
@@ -165,8 +165,7 @@
                             <Label Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Text="{Binding ScheduledOn,
-                                          StringFormat='Scheduled On : {0:dd MMM yyyy, hh:mm tt}'}"
+                                   Text="{Binding ScheduledOn,StringFormat='Scheduled: {0}', Converter= {StaticResource DateToRelativeTextConverter}}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
 
@@ -185,6 +184,7 @@
                                    Text="{Binding Notes, StringFormat= 'Notes : {0}'}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
+
 
 
                         </Grid>

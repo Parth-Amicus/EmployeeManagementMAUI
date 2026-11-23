@@ -8,6 +8,13 @@ namespace EmployeeManagementMAUI.ViewModels;
 
 public class InspectionListViewModel : BaseViewModel
 {
+    private bool _hasSearchResults;
+    public bool ShowEmptyState => !IsBusy && !HasSearchResults;
+    public bool HasSearchResults
+    {
+        get => _hasSearchResults;
+        set => SetProperty(ref _hasSearchResults, value);
+    }
 
     private string _searchText = string.Empty;
     // will hold the inspection that matches search 
@@ -32,17 +39,23 @@ public class InspectionListViewModel : BaseViewModel
     public bool IsBusy
     {
         get => _isBusy;
-        set => SetProperty(ref _isBusy, value); // base view model provides this 
+        set
+        {
+            if (SetProperty(ref _isBusy, value))
+                OnPropertyChanged(nameof(ShowEmptyState));
+        }
     }
-    
-    
+
+
     public InspectionListViewModel()
     {
         // list which will notify the ui when items are added
         Inspections = new ObservableCollection<Inspection>(); // firstly initialize the empty list because we want to add item after delay
+
+        FilteredInspections = new ObservableCollection<Inspection>();
+
         //loading the inspection
         _ =LoadInspectionAsync(); // because returning a task
-        FilteredInspections = new ObservableCollection<Inspection>();
 
     }
 
@@ -213,5 +226,7 @@ public class InspectionListViewModel : BaseViewModel
         {
             FilteredInspections.Add(inspection);
         }
+        // Check whether the search returned any results
+        HasSearchResults = FilteredInspections.Count > 0;
     }
 }
