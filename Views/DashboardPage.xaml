@@ -121,7 +121,7 @@
                         <VerticalStackLayout Spacing="{StaticResource SpacingMedium}">
                             <Label Text="Pending"                                   
                                    FontSize="{StaticResource FontSizeBody}"
-                                   FontFamily="{StaticResource PoppinsBold}"
+                                FontFamily="{StaticResource BoldFont}"
                                    TextColor="{StaticResource TextSecondary}" />
 
                             <Label Text="{Binding PendingInspections}"
