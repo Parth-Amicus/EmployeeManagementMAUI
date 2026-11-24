@@ -200,6 +200,32 @@ MVVM separates application logic from the user interface. This makes the applica
 
 ---
 
+## Shell Routes and Navigation
+
+The application uses URI-based navigation through `Shell.Current.GoToAsync(...)`. The registered and shell-defined routes are:
+
+| Route | Page | Parameters |
+| :--- | :--- | :--- |
+| `login` | `LoginPage` | None |
+| `//dashboard` | `DashboardPage` | None |
+| `//inspections` | `InspectionListPage` | None |
+| `//profile` | `InspectorProfilePage` | None |
+| `InspectionDetailPage?inspectionId={id}` | `InspectionDetailPage` | `inspectionId`: integer ID of the selected inspection |
+
+`InspectionDetailPage` is registered in `AppShell.xaml.cs` with `Routing.RegisterRoute(...)`. The `InspectionDetailViewModel` receives `inspectionId` through the `QueryProperty` attribute and loads the matching inspection from `InspectionService`.
+
+### Why Shell Routes Were Used
+
+Shell routes give the app one consistent navigation mechanism and expose each destination through a route URI. This is useful for application-wide tabs, absolute navigation with `//`, route parameters, and future deep-linking or navigation invoked outside a page's code-behind.
+
+The `//dashboard`, `//inspections`, and `//profile` routes switch directly between the shell's main tab destinations. The detail route is relative and pushes `InspectionDetailPage` onto the navigation stack, allowing the platform back button or the shell back navigation to return to the previous page.
+
+### When `PushAsync` Would Be a Better Choice
+
+`Navigation.PushAsync(...)` would be more appropriate for a small, isolated page hierarchy that does not need shell route registration or global URI addressing. It is also a good fit for tightly coupled content in a navigation page, especially when navigation is local and the destination should not be reachable as an application-level route.
+
+Push-style navigation can be useful for a short, temporary sub-flow, but it does not provide the same centralized shell route/deep-link structure that this app uses. This application therefore uses Shell routes for its main destinations and parameterized detail navigation, while keeping direct push navigation as a reasonable alternative for local, one-off page sequences.
+
 ## Command Re-Entry Protection (Double-Tap Behavior)
 
 The app now uses custom command types:
