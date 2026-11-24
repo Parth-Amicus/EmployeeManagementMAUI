@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    xmlns:controls="clr-namespace:EmployeeManagementMAUI.Controls"
+    x:Class="EmployeeManagementMAUI.Views.InspectionDetailPage"
+    x:DataType="vm:InspectionDetailViewModel"
+    Title="Inspection Details"
+    Shell.NavBarIsVisible="True"
+    BackgroundColor="{StaticResource PageBackground}"
+    SafeAreaEdges="All">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="{StaticResource SpacingPage}"
+                             Spacing="{StaticResource SpacingCard}">
+
+            <Label Text="Inspection not found"
+                   FontSize="{StaticResource FontSizeBody}"
+                   TextColor="{StaticResource TextSecondary}"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding IsInspectionFound, Converter={StaticResource InverseBooleanConverter}}" />
+
+            <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                         Padding="{StaticResource SpacingCard}"
+                         IsVisible="{Binding IsInspectionFound}">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowSpacing="{StaticResource SpacingLarge}">
+
+                    <VerticalStackLayout Grid.Row="0" Spacing="{StaticResource SpacingSmall}">
+                        <Label Text="{Binding Inspection.Title}"
+                               Style="{StaticResource PageTitleLabelStyle}" />
+                        <controls:StatusBadge Status="{Binding Inspection.Status}" />
+                    </VerticalStackLayout>
+
+                    <Label Grid.Row="1"
+                           Text="{Binding Inspection.SiteName, StringFormat='Site: {0}'}"
+                           FontSize="{StaticResource FontSizeMedium}" />
+
+                    <Label Grid.Row="2"
+                           Text="{Binding Inspection.Priority, StringFormat='Priority: {0}'}"
+                           FontSize="{StaticResource FontSizeMedium}" />
+
+                    <Label Grid.Row="3"
+                           Text="{Binding Inspection.InspectorName, StringFormat='Inspector: {0}'}"
+                           FontSize="{StaticResource FontSizeMedium}" />
+
+                    <Label Grid.Row="4"
+                           Text="{Binding Inspection.ScheduledOn, StringFormat='Scheduled: {0:dd MMM yyyy, hh:mm tt}'}"
+                           FontSize="{StaticResource FontSizeMedium}" />
+
+                    <Label Grid.Row="5"
+                           Text="{Binding Inspection.Id, StringFormat='Inspection ID: {0}'}"
+                           FontSize="{StaticResource FontSizeSmall}"
+                           TextColor="{StaticResource TextSecondary}" />
+
+                    <VerticalStackLayout Grid.Row="6" Spacing="{StaticResource SpacingSmall}">
+                        <Label Text="Notes"
+                               Style="{StaticResource InspectionTitleLabelStyle}" />
+                        <Label Text="{Binding Inspection.Notes}"
+                               FontSize="{StaticResource FontSizeBody}"
+                               TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </ContentView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -20,17 +20,26 @@ public partial class DashboardPage : ContentPage
     /// Triggered by tapping the circular profile icon in the header row.
     /// Shell shows a back-arrow automatically; no extra plumbing needed.
     /// </summary>
-    private async void OnProfileIconTapped(object sender, EventArgs e)
+    private async void OnProfileIconTapped(object? sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("profile");
+        await Shell.Current.GoToAsync("//profile");
     }
 
     /// <summary>
     /// Pushes InspectionListPage onto the Shell navigation stack.
     /// Triggered by tapping the "View All" button next to the section heading.
     /// </summary>
-    private async void OnViewAllTapped(object sender, EventArgs e)
+    private async void OnViewAllTapped(object? sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("inspections");
+        await Shell.Current.GoToAsync("//inspections");
+    }
+
+    private async void OnInspectionCardTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is BindableObject bindable &&
+            bindable.BindingContext is Models.Inspection inspection)
+        {
+            await Shell.Current.GoToAsync($"InspectionDetailPage?inspectionId={inspection.Id}");
+        }
     }
 }

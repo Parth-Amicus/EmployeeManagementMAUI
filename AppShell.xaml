@@ -14,13 +14,21 @@
         ContentTemplate="{DataTemplate views:LoginPage}"
         Shell.FlyoutItemIsVisible="False" />
 
-    <!--
-        Root page — Dashboard.
-        NavBarIsVisible="False" hides the Shell chrome so DashboardPage
-        controls its own header row (title + profile icon).
-    -->
-    <ShellContent
-        Route="dashboard"
-        ContentTemplate="{DataTemplate views:DashboardPage}" />
+    <TabBar Route="main">
+        <ShellContent
+            Title="Dashboard"
+            Route="dashboard"
+            ContentTemplate="{DataTemplate views:DashboardPage}" />
+
+        <ShellContent
+            Title="Inspections"
+            Route="inspections"
+            ContentTemplate="{DataTemplate views:InspectionListPage}" />
+
+        <ShellContent
+            Title="Profile"
+            Route="profile"
+            ContentTemplate="{DataTemplate views:InspectorProfilePage}" />
+    </TabBar>
 
 </Shell>

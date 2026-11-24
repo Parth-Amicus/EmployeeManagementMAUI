@@ -1,5 +1,6 @@
 
 using EmployeeManagementMAUI.ViewModels;
+using EmployeeManagementMAUI.Models;
 
 namespace EmployeeManagementMAUI.Views;
 
@@ -53,12 +54,19 @@ public partial class InspectionListPage : ContentPage
 
     private void OnInspectionSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-      // This behavior needs an event because we rely on SelectionChangedEventArgs and
-      // immediate view-level deselection (CollectionView.SelectedItem), which is UI plumbing.
       if (sender is CollectionView collectionView && e.CurrentSelection.Count > 0)
       {
+        if (e.CurrentSelection[0] is Inspection inspection)
+        {
+          _ = NavigateToDetailAsync(inspection.Id);
+        }
+
         collectionView.SelectedItem = null;
       }
     }
 
+    private static async Task NavigateToDetailAsync(int inspectionId)
+    {
+      await Shell.Current.GoToAsync($"InspectionDetailPage?inspectionId={inspectionId}");
+    }
 }

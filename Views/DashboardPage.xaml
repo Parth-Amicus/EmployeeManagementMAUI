@@ -259,6 +259,9 @@
                                 -->
                                 <ContentView ControlTemplate="{StaticResource CardTemplate}"
                                              Padding="{StaticResource InspectionCardPadding}">
+                                    <ContentView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnInspectionCardTapped" />
+                                    </ContentView.GestureRecognizers>
 
                                     <Grid ColumnDefinitions="*,Auto"
                                           RowDefinitions="Auto,Auto,Auto"

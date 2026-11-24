@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.ObjectModel;
 using EmployeeManagementMAUI.Models;
+using EmployeeManagementMAUI.Services;
 
 namespace EmployeeManagementMAUI.ViewModels;
 
@@ -19,29 +20,9 @@ public class DashboardViewModel : BaseViewModel
     {
         TodaysInspections = new ObservableCollection<Inspection>
         {
-            new Inspection
-            {
-                Title = "Safety Equipment Check",
-                SiteName = "Building A",
-                Status = "Pending",
-                ScheduledOn = DateTime.Today.AddHours(10).AddMinutes(30)
-            },
-
-            new Inspection
-            {
-                Title = "Fire Extinguisher Inspection",
-                SiteName = "Building B",
-                Status = "In Progress",
-                ScheduledOn = DateTime.Today.AddHours(12)
-            },
-
-            new Inspection
-            {
-                Title = "Electrical Inspection",
-                SiteName = "Building C",
-                Status = "Completed",
-                ScheduledOn = DateTime.Today.AddHours(14).AddMinutes(30)
-            }
+            InspectionService.GetById(1)!,
+            InspectionService.GetById(2)!,
+            InspectionService.GetById(3)!
         };
     }
 }
