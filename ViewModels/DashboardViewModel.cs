@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using EmployeeManagementMAUI.Models;
 using EmployeeManagementMAUI.Services;
+using EmployeeManagementMAUI.ViewModels.Commands;
 
 namespace EmployeeManagementMAUI.ViewModels;
 
@@ -14,15 +15,33 @@ public class DashboardViewModel : BaseViewModel
     public int CompletedInspections { get; set; } = 10;
 
     //  ObservableCollection is a collection that notifies the UI when items are added or removed
-    public ObservableCollection<Inspection> TodaysInspections { get; set; }
+    public ObservableCollection<Inspection> TodaysInspections { get; set; } =
+        new ObservableCollection<Inspection>();
+
+    public AsyncRelayCommand OpenNewInspectionCommand { get; }
 
     public DashboardViewModel()
     {
+        OpenNewInspectionCommand = new AsyncRelayCommand(OpenNewInspectionAsync);
+        RefreshInspections();
+    }
+
+    public void RefreshInspections()
+    {
         TodaysInspections = new ObservableCollection<Inspection>
+            (InspectionService.GetInspections()
+                .Where(inspection => inspection.ScheduledOn.Date == DateTime.Today)
+                .Take(3));
+        OnPropertyChanged(nameof(TodaysInspections));
+    }
+
+    private async Task OpenNewInspectionAsync()
+    {
+        if (Shell.Current is not null)
         {
-            InspectionService.GetById(1)!,
-            InspectionService.GetById(2)!,
-            InspectionService.GetById(3)!
-        };
+            await Shell.Current.Navigation.PushModalAsync(new Views.NewInspectionPage());
+        }
+
+        RefreshInspections();
     }
 }

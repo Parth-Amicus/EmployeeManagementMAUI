@@ -22,4 +22,14 @@ public static class InspectionService
 
     public static Inspection? GetById(int id) =>
         Inspections.FirstOrDefault(inspection => inspection.Id == id);
+
+    public static Inspection Add(Inspection inspection)
+    {
+        inspection.Id = Inspections.Count == 0
+            ? 1
+            : Inspections.Max(item => item.Id) + 1;
+
+        Inspections.Add(inspection);
+        return inspection;
+    }
 }

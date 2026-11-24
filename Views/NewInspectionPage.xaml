@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EmployeeManagementMAUI.ViewModels"
+    x:Class="EmployeeManagementMAUI.Views.NewInspectionPage"
+    x:DataType="vm:NewInspectionViewModel"
+    Title="New Inspection"
+    Shell.PresentationMode="Modal"
+    BackgroundColor="{StaticResource PageBackground}"
+    SafeAreaEdges="All">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="{StaticResource SpacingPage}"
+          RowSpacing="{StaticResource SpacingCard}">
+
+        <Label Grid.Row="0"
+               Text="New Inspection"
+               Style="{StaticResource PageTitleLabelStyle}" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="{StaticResource SpacingCard}">
+                <Entry Placeholder="Title"
+                       Text="{Binding Title, Mode=TwoWay}" />
+                <Entry Placeholder="Site name"
+                       Text="{Binding SiteName, Mode=TwoWay}" />
+                <Entry Placeholder="Inspector name"
+                       Text="{Binding InspectorName, Mode=TwoWay}" />
+
+                <Picker Title="Status"
+                        SelectedItem="{Binding Status, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Pending</x:String>
+                        <x:String>In Progress</x:String>
+                        <x:String>Completed</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Picker Title="Priority"
+                        SelectedItem="{Binding Priority, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>High</x:String>
+                        <x:String>Medium</x:String>
+                        <x:String>Low</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <DatePicker Date="{Binding ScheduledOn, Mode=TwoWay}" />
+
+                <Editor Placeholder="Notes"
+                        Text="{Binding Notes, Mode=TwoWay}"
+                        AutoSize="TextChanges"
+                        HeightRequest="120" />
+
+                <Label Text="{Binding ValidationMessage}"
+                       TextColor="{StaticResource StatusPending}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="{StaticResource SpacingCard}">
+            <Button Grid.Column="0"
+                    Text="Cancel"
+                    Clicked="OnCancelClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource Primary}" />
+            <Button Grid.Column="1"
+                    Text="Save"
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+        </Grid>
+    </Grid>
+</ContentPage>
