@@ -57,13 +57,20 @@
                 InspectorProfilePage onto the Shell navigation stack.
             -->
             <Button Grid.Column="1"
-                    Text="New Inspection"
+                    Text="+"
                     Command="{Binding OpenNewInspectionCommand}"
                     Style="{StaticResource PrimaryButtonStyle}"
+                    WidthRequest="{StaticResource MinTouchTarget}"
                     HeightRequest="{StaticResource MinTouchTarget}"
-                    Padding="{StaticResource ButtonInlinePadding}"
+                    CornerRadius="22"
+                    Padding="0"
                     Margin="0,0,8,0"
-                    VerticalOptions="Center" />
+                    FontSize="24"
+                    FontFamily="{StaticResource BoldFont}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Add new inspection"
+                    SemanticProperties.Hint="Opens the new inspection form" />
 
             <Border Grid.Column="2"
                     x:Name="ProfileIconBorder"
