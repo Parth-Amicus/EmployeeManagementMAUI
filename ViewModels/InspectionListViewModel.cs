@@ -11,6 +11,7 @@ namespace EmployeeManagementMAUI.ViewModels;
 public class InspectionListViewModel : BaseViewModel
 {
     private AsyncRelayCommand? _loadInspectionsCommand;
+    private AsyncRelayCommand? _refreshInspectionsCommand;
     private bool _hasSearchResults;
 
     public bool HasSearchResults
@@ -59,13 +60,32 @@ public class InspectionListViewModel : BaseViewModel
             {
                 OnPropertyChanged(nameof(ShowEmptyState));
                 _loadInspectionsCommand?.NotifyCanExecuteChanged();
+                _refreshInspectionsCommand?.NotifyCanExecuteChanged();
             }
         }
+    }
+
+    private bool _isLoading;
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
+
+    private bool _isRefreshing;
+
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set => SetProperty(ref _isRefreshing, value);
     }
 
     public AsyncRelayCommand LoadInspectionsCommand =>
         _loadInspectionsCommand ??= new AsyncRelayCommand(LoadInspectionAsync, () => !IsBusy);
 
+    public AsyncRelayCommand RefreshInspectionsCommand =>
+        _refreshInspectionsCommand ??= new AsyncRelayCommand(RefreshInspectionAsync, () => !IsBusy);
 
     public InspectionListViewModel()
     {
@@ -86,6 +106,7 @@ public class InspectionListViewModel : BaseViewModel
         try
         {
             IsBusy = true;
+            IsLoading = true;
             await Task.Delay(2000);
             Inspections.Clear();
             foreach(var inspection in InspectionService.GetInspections())
@@ -97,6 +118,30 @@ public class InspectionListViewModel : BaseViewModel
         }
         finally
         {
+            IsLoading = false;
+            IsBusy = false;
+        }
+    }
+
+    public async Task RefreshInspectionAsync()
+    {
+        if (IsBusy)
+            return;
+        try
+        {
+            IsBusy = true;
+            IsRefreshing = true;
+            await Task.Delay(2000);
+            Inspections.Clear();
+            foreach (var inspection in InspectionService.GetInspections())
+            {
+                Inspections.Add(inspection);
+            }
+            ApplySearchFilter();
+        }
+        finally
+        {
+            IsRefreshing = false;
             IsBusy = false;
         }
     }
