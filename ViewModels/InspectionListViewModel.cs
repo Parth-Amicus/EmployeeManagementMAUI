@@ -5,30 +5,23 @@ using EmployeeManagementMAUI.Models;
 using EmployeeManagementMAUI.Services;
 using EmployeeManagementMAUI.ViewModels.Commands;
 
-
 namespace EmployeeManagementMAUI.ViewModels;
 
 public class InspectionListViewModel : BaseViewModel
 {
-    private AsyncRelayCommand? _loadInspectionsCommand;
-    private AsyncRelayCommand? _refreshInspectionsCommand;
+    // holds the command 
+    private AsyncRelayCommand? _loadInspectionsCommand; //initial load
+    private AsyncRelayCommand? _refreshInspectionsCommand; // for pull to refresh
+
+    // Private fields
     private bool _hasSearchResults;
-
-    public bool HasSearchResults
-    {
-        get => _hasSearchResults;
-        set
-        {
-            if (SetProperty(ref _hasSearchResults, value))
-                OnPropertyChanged(nameof(ShowEmptyState));
-        }
-    }
-
-    // Empty state appears only when loading is complete
-    // and no matching inspections are available
-    public bool ShowEmptyState => !IsBusy && !HasSearchResults;
-
     private string _searchText = string.Empty;
+    private bool _isBusy; // tracks whether an operation is running
+    private bool _isLoading; // controls initial loading indicator
+    private bool _isRefreshing; // control pull refresh indicator
+
+    // Holds all inspection records
+    public ObservableCollection<Inspection> Inspections { get; set; }
 
     // Holds inspections matching the search text
     public ObservableCollection<Inspection> FilteredInspections { get; set; }
@@ -46,10 +39,18 @@ public class InspectionListViewModel : BaseViewModel
         }
     }
 
-    // Holds all inspection records
-    public ObservableCollection<Inspection> Inspections { get; set; }
-
-    private bool _isBusy;
+    public bool HasSearchResults
+    {
+        get => _hasSearchResults;
+        set
+        {
+            if (SetProperty(ref _hasSearchResults, value)) // set property check whether the value has changed 
+                OnPropertyChanged(nameof(ShowEmptyState));
+        }
+    }
+    // Empty state appears only when loading is complete
+    // and no matching inspections are available
+    public bool ShowEmptyState => !IsBusy && !HasSearchResults;
 
     public bool IsBusy
     {
@@ -65,15 +66,11 @@ public class InspectionListViewModel : BaseViewModel
         }
     }
 
-    private bool _isLoading;
-
     public bool IsLoading
     {
         get => _isLoading;
         set => SetProperty(ref _isLoading, value);
     }
-
-    private bool _isRefreshing;
 
     public bool IsRefreshing
     {
@@ -81,11 +78,16 @@ public class InspectionListViewModel : BaseViewModel
         set => SetProperty(ref _isRefreshing, value);
     }
 
+    // Commands exposed to the View
     public AsyncRelayCommand LoadInspectionsCommand =>
-        _loadInspectionsCommand ??= new AsyncRelayCommand(LoadInspectionAsync, () => !IsBusy);
+        _loadInspectionsCommand ??= new AsyncRelayCommand(
+            LoadInspectionAsync,
+            () => !IsBusy);
 
     public AsyncRelayCommand RefreshInspectionsCommand =>
-        _refreshInspectionsCommand ??= new AsyncRelayCommand(RefreshInspectionAsync, () => !IsBusy);
+        _refreshInspectionsCommand ??= new AsyncRelayCommand(
+            RefreshInspectionAsync,
+            () => !IsBusy); // allows refreshing only when another command is not running
 
     public InspectionListViewModel()
     {
@@ -96,24 +98,28 @@ public class InspectionListViewModel : BaseViewModel
 
         // Start the first load through the command pipeline so re-entry protection is used consistently.
         LoadInspectionsCommand.Execute(null);
-
     }
 
     public async Task LoadInspectionAsync()
     {
         if (IsBusy)
             return;
+
         try
         {
             IsBusy = true;
             IsLoading = true;
+
             await Task.Delay(2000);
+
             Inspections.Clear();
-            foreach(var inspection in InspectionService.GetInspections())
+
+            foreach (var inspection in InspectionService.GetInspections())
             {
                 Inspections.Add
                     (inspection);
             }
+
             ApplySearchFilter();
         }
         finally
@@ -127,16 +133,21 @@ public class InspectionListViewModel : BaseViewModel
     {
         if (IsBusy)
             return;
+
         try
         {
             IsBusy = true;
             IsRefreshing = true;
+
             await Task.Delay(2000);
+
             Inspections.Clear();
+
             foreach (var inspection in InspectionService.GetInspections())
             {
                 Inspections.Add(inspection);
             }
+
             ApplySearchFilter();
         }
         finally
@@ -164,6 +175,7 @@ public class InspectionListViewModel : BaseViewModel
         {
             FilteredInspections.Add(inspection);
         }
+
         // Check whether the search returned any results
         HasSearchResults = FilteredInspections.Count > 0;
     }

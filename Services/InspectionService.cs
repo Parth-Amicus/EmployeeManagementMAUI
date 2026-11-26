@@ -1,10 +1,11 @@
 using EmployeeManagementMAUI.Models;
+using System.Collections.ObjectModel;
 
 namespace EmployeeManagementMAUI.Services;
 
 public static class InspectionService
 {
-    private static readonly List<Inspection> Inspections =
+    private static readonly ObservableCollection<Inspection> Inspections =
     [
         new() { Id = 1, Title = "Safety Equipment Check", SiteName = "Building A", Status = "Pending", Priority = "High", ScheduledOn = DateTime.Today.AddHours(10).AddMinutes(30), InspectorName = "Arjun", Notes = "Check Safety" },
         new() { Id = 2, Title = "Fire Extinguisher Inspection", SiteName = "Building B", Status = "In Progress", Priority = "Low", ScheduledOn = DateTime.Today.AddHours(12), InspectorName = "Arjeet", Notes = "Check fire extinguishers and add new equipment" },
@@ -18,16 +19,13 @@ public static class InspectionService
         new() { Id = 10, Title = "Building Security Inspection", SiteName = "Building J", Status = "Pending", InspectorName = "Keshav", Notes = "Check lifts", Priority = "High", ScheduledOn = DateTime.Today.AddDays(3).AddHours(14) }
     ];
 
-    public static IReadOnlyList<Inspection> GetInspections() => Inspections;
+    public static ObservableCollection<Inspection> GetInspections() => Inspections; 
 
-    public static Inspection? GetById(int id) =>
-        Inspections.FirstOrDefault(inspection => inspection.Id == id);
+    public static Inspection? GetInspectionById(int id) => Inspections.FirstOrDefault(inspection => inspection.Id == id);
 
     public static Inspection Add(Inspection inspection)
     {
-        inspection.Id = Inspections.Count == 0
-            ? 1
-            : Inspections.Max(item => item.Id) + 1;
+        inspection.Id = Inspections.Count == 0? 1: Inspections.Max(item => item.Id) + 1;
 
         Inspections.Add(inspection);
         return inspection;

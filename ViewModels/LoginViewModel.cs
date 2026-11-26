@@ -19,7 +19,7 @@ public class LoginViewModel : BaseViewModel
         get => _email;
         set
         {
-            if (SetProperty(ref _email, value))
+            if (SetProperty(ref _email, value)) //update only if the new value is different
             {
                 ValidateEmail();
                 OnPropertyChanged(nameof(IsLoginEnabled)); // whenever email changes we notify the ui to recalculate isLoginEnabled
@@ -101,14 +101,14 @@ public class LoginViewModel : BaseViewModel
 
     private async Task LoginAsync()
     {
-        if (Email == "admin@abc.com" &&
-            Password == "Password123")
+        if (Email == "abc@abc.com" &&
+            Password == "12345678")
         {
             LoginMessage = "Login successful!";
             try
             {
                 // Navigate to Dashboard after successful login
-                if (Shell.Current is null)
+                if (Shell.Current is null) // provides access to current active shell
                 {
                     LoginMessage = "Navigation unavailable right now. Please try again.";
                     return;

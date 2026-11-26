@@ -3,14 +3,14 @@ using System.Diagnostics;
 
 namespace EmployeeManagementMAUI.ViewModels.Commands;
 
-public sealed class AsyncRelayCommand : ICommand
+public sealed class AsyncRelayCommand : ICommand // sealed means other class can not inherit from this 
 {
-    private readonly Func<Task> _executeAsync;
+    private readonly Func<Task> _executeAsync; // stores reference 
     private readonly Func<bool>? _canExecute;
-    private readonly Action<Exception>? _onException;
-    private bool _isExecuting;
+    private readonly Action<Exception>? _onException; 
+    private bool _isExecuting; // to track currently running command
 
-    public event EventHandler? CanExecuteChanged;
+    public event EventHandler? CanExecuteChanged;// event // informs ui about availability
 
     public AsyncRelayCommand(
         Func<Task> executeAsync,
@@ -22,10 +22,10 @@ public sealed class AsyncRelayCommand : ICommand
         _onException = onException;
     }
 
-    public bool IsExecuting => _isExecuting;
+    public bool IsExecuting => _isExecuting; // used internally for command execution control
 
     public bool CanExecute(object? parameter)
-        => !_isExecuting && (_canExecute?.Invoke() ?? true);
+        => !_isExecuting && (_canExecute?.Invoke() ?? true); // also checks optional canExecute if not provided it is true
 
     public async void Execute(object? parameter)
     {
@@ -33,7 +33,7 @@ public sealed class AsyncRelayCommand : ICommand
             return;
 
         _isExecuting = true;
-        NotifyCanExecuteChanged();
+        NotifyCanExecuteChanged();// ui is notified that command is available 
 
         try
         {
@@ -51,5 +51,5 @@ public sealed class AsyncRelayCommand : ICommand
         }
     }
 
-    public void NotifyCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    public void NotifyCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty); // calls the event
 }

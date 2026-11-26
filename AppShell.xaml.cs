@@ -4,11 +4,11 @@ namespace EmployeeManagementMAUI
     {
         public AppShell()
         {
-            InitializeComponent();
+            InitializeComponent(); // load the ui strucutre defined inside appshell.xaml
 
-            Routing.RegisterRoute(
-                nameof(Views.InspectionDetailPage),
-                typeof(Views.InspectionDetailPage));
+            Routing.RegisterRoute( //registered as route so you can navigate to it 
+                nameof(Views.InspectionDetailPage), // returns a string "InspectionDetailPage"
+                typeof(Views.InspectionDetailPage)); // provides the actual page type
         }
     }
 }

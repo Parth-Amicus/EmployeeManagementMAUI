@@ -4,10 +4,10 @@ namespace EmployeeManagementMAUI.ViewModels.Commands;
 
 public sealed class RelayCommand : ICommand
 {
-    private readonly Action _execute;
+    private readonly Action _execute; // Action is a c# delegate unlike func it newvwe return a value, used for void 
     private readonly Func<bool>? _canExecute;
 
-    public event EventHandler? CanExecuteChanged;
+    public event EventHandler? CanExecuteChanged; // tells the availability of command
 
     public RelayCommand(Action execute, Func<bool>? canExecute = null)
     {
@@ -15,7 +15,7 @@ public sealed class RelayCommand : ICommand
         _canExecute = canExecute;
     }
 
-    public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
+    public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true; // Invoke raises the event only if somethinf is subscribed to it
 
     public void Execute(object? parameter)
     {

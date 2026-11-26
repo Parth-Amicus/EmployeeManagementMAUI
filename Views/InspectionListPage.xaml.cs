@@ -52,7 +52,7 @@ public partial class InspectionListPage : ContentPage
     //    InspectionCollection.ItemsSource = filteredInspections;
     //}
 
-    private void OnInspectionSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void OnInspectionSelectionChanged(object? sender, SelectionChangedEventArgs e) // sender is the object that raised the event (collection view) and e contains info about the selection change
     {
       if (sender is CollectionView collectionView && e.CurrentSelection.Count > 0)
       {
@@ -61,7 +61,7 @@ public partial class InspectionListPage : ContentPage
           _ = NavigateToDetailAsync(inspection.Id);
         }
 
-        collectionView.SelectedItem = null;
+        collectionView.SelectedItem = null; //clears the selected item
       }
     }
 

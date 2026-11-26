@@ -31,40 +31,58 @@
                 <Label Text="View all scheduled inspections"
                        FontSize="{StaticResource FontSizeBody}"
                        TextColor="{StaticResource TextSecondary}" />
+                
+                
             </VerticalStackLayout>
 
 
-            <!-- Entry control for searching inspections -->
-            <Entry x:Name="SearchEntry"
-                   Placeholder="Search by title, inspector or site"
-                   BackgroundColor="{StaticResource Surface}"
-                   Text="{Binding SearchText, Mode=TwoWay}"
-                   TextColor="{StaticResource TextPrimary}"
-                   PlaceholderColor="{StaticResource TextMuted}"
-                   ClearButtonVisibility="WhileEditing"
-                   />
 
-            <!-- Picker control for filtering by status -->
-            <Picker x:Name="StatusPicker"
-                    Title="Filter by status"
-                    BackgroundColor="{StaticResource Surface}"
-                    TextColor="{StaticResource TextPrimary}"
-                    >
+            <!-- Search bar -->
+            <Border
+            BackgroundColor="{StaticResource Surface}"
+            Stroke="#E2E5F2"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 30"
+            Padding="14,4"
+            Margin="0,0,0,16">
 
-                <Picker.Items>
-                    <x:String>All</x:String>
-                    <x:String>Pending</x:String>
-                    <x:String>In Progress</x:String>
-                    <x:String>Completed</x:String>
-                </Picker.Items>
+            <Grid ColumnDefinitions="Auto,*,Auto"
+            ColumnSpacing="2"
+            VerticalOptions="Center">
 
-            </Picker>
+             <!-- Search icon -->
+            <Label
+            Grid.Column="0"
+            Text="⌕"
+            FontSize="30"
+            TextColor="{StaticResource TextSecondary}"
+            VerticalOptions="Center" />
+
+            <!-- Search entry -->
+            <Entry
+            Grid.Column="1"
+            x:Name="SearchEntry"
+            Placeholder="Search by title, inspector or site"
+            BackgroundColor="Transparent"
+            Text="{Binding SearchText, Mode=TwoWay}"
+            TextColor="{StaticResource TextPrimary}"
+            PlaceholderColor="{StaticResource TextMuted}"
+                
+            ClearButtonVisibility="WhileEditing"
+            VerticalOptions="Center" />
+
+         
+                </Grid>
+            </Border>
+
+
 
         </VerticalStackLayout>
 
+        
 
         <!-- Shows loading progress while inspections are being loaded -->
-        <ActivityIndicator Grid.Row="1"
+        <ActivityIndicator Grid.Row="1"                        
                    IsRunning="{Binding IsLoading}"
                    IsVisible="{Binding IsLoading}"
                    Color="{StaticResource Primary}"
@@ -88,6 +106,11 @@
                 <!-- CollectionView -->
                 <!-- item source connects the CollectionView to the Inspections collection in our ViewModel-->
                 <!-- selectionMode = "single" defines only one item can be selected-->
+
+
+                <!--We used the SelectionChanged event because we needed direct access to SelectionChangedEventArgs to retrieve the selected inspection and navigate to its detail page. 
+                Although MAUI supports SelectionChangedCommand too, we used the event to demonstrate event-based handling of this UI interaction-->
+                
                 <CollectionView x:Name="InspectionCollection"
                                 ItemsSource="{Binding FilteredInspections}"
                                 SelectionMode="Single"
@@ -109,16 +132,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Inspection">
 
-                    <!--
-                        CardTemplate provides the standard white-surface card shell
-                        (rounded corners + drop shadow), matching the dashboard and
-                        profile cards.  VisualStateManager on the ContentView host
-                        lets the CollectionView drive the Normal / Selected highlight.
-                    -->
                     <ContentView ControlTemplate="{StaticResource CardTemplate}"
                                  Padding="{StaticResource SpacingCard}">
 
-                        <!-- Selected Item Visual States -->
+                        <!-- Selected Item Visual States to highlight -->
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
 
@@ -152,20 +169,22 @@
                             <!-- Inspection Status — reusable StatusBadge control -->
                             <controls:StatusBadge
                                    Grid.Row="0"
-                                   Grid.Column="1"
+                                   Grid.Column="3"
                                    Status="{Binding Status}"
+                                   HorizontalOptions="End"
                                    VerticalOptions="Center" />
 
                             <!--prority-->
                             <controls:StatusBadge
-                                   Grid.Row="0"
-                                   Grid.Column="3"
+                                   Grid.Row="2"
+                                   Grid.Column="3"      
+                                    HorizontalOptions="End"
                                    Status="{Binding Priority}"
                                    VerticalOptions="Center" />
 
 
                             <!-- Site -->
-                            <Label Grid.Row="1"
+                            <Label Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding SiteName,
@@ -175,7 +194,7 @@
 
 
                             <!-- Scheduled Date -->
-                            <Label Grid.Row="2"
+                            <Label Grid.Row="3"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding ScheduledOn,StringFormat='Scheduled: {0}', Converter= {StaticResource DateToRelativeTextConverter}}"
@@ -183,24 +202,16 @@
                                    TextColor="{StaticResource TextSecondary}" />
 
                             <!--Inspector name-->
-                            <Label Grid.Row="1"
+                                    <Label Grid.Row="3"
                                    Grid.Column="2"
-                                   Grid.ColumnSpan="2"
+                                   Grid.ColumnSpan="2"                                         
                                    Text="{Binding InspectorName,StringFormat='Inspector: {0}'}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
 
-                            <!--Auto-->
-                            <Label Grid.Row="3"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   Text="{Binding Notes, StringFormat= 'Notes : {0}'}"
-                                   FontSize="{StaticResource FontSizeSmall}"
-                                   TextColor="{StaticResource TextSecondary}" />
 
 
-
-                        </Grid>
+                                </Grid>
 
 
                     </ContentView>

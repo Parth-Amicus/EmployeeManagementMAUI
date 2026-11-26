@@ -6,14 +6,13 @@ namespace EmployeeManagementMAUI.ViewModels;
 
 public abstract class BaseViewModel : INotifyPropertyChanged
 {
-    // Event raised whenever a property value changes
+    // event(notification) raised whenever a property value changes
     public event PropertyChangedEventHandler? PropertyChanged;
 
     // Notifies the UI that a particular property has changed
-    protected void OnPropertyChanged(
-        [CallerMemberName] string? propertyName = null)
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) // callermember automatically gets the name of the property
     {
-        PropertyChanged?.Invoke(
+        PropertyChanged?.Invoke( //? invokes only if the event has subscribers
             this,
             new PropertyChangedEventArgs(propertyName));
     }

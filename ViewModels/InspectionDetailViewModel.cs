@@ -17,7 +17,7 @@ public class InspectionDetailViewModel : BaseViewModel
             if (SetProperty(ref _inspectionId, value) &&
                 int.TryParse(value, out var id))
             {
-                Inspection = InspectionService.GetById(id);
+                Inspection = InspectionService.GetInspectionById(id);
             }
         }
     }

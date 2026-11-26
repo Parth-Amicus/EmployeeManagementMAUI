@@ -15,8 +15,7 @@ public class DashboardViewModel : BaseViewModel
     public int CompletedInspections { get; set; } = 10;
 
     //  ObservableCollection is a collection that notifies the UI when items are added or removed
-    public ObservableCollection<Inspection> TodaysInspections { get; set; } =
-        new ObservableCollection<Inspection>();
+    public ObservableCollection<Inspection> TodaysInspections { get; set; } = new ObservableCollection<Inspection>();
 
     public AsyncRelayCommand OpenNewInspectionCommand { get; }
 
@@ -29,9 +28,7 @@ public class DashboardViewModel : BaseViewModel
     public void RefreshInspections()
     {
         TodaysInspections = new ObservableCollection<Inspection>
-            (InspectionService.GetInspections()
-                .Where(inspection => inspection.ScheduledOn.Date == DateTime.Today)
-                .Take(3));
+            (InspectionService.GetInspections().Where(inspection => inspection.ScheduledOn.Date == DateTime.Today).Take(3));
         OnPropertyChanged(nameof(TodaysInspections));
     }
 
