@@ -23,34 +23,6 @@ public partial class InspectionListPage : ContentPage
       //  StatusPicker.SelectedIndex = 0;
     }
 
-    // Called whenever the user types in the search Entry
-    //private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //   // ApplyFilters();
-    //}
-
-    //// Called whenever the user selects a different status
-    //private void OnStatusChanged(object sender, EventArgs e)
-    //{
-    //    //ApplyFilters();
-    //}
-
-    //// Apply search and status filters to the inspection list
-    //private void ApplyFilters()
-    //{
-    //    string searchText = SearchEntry.Text?.Trim() ?? string.Empty;
-
-    //    string selectedStatus = StatusPicker.SelectedItem?.ToString() ?? "All";
-
-    //    var filteredInspections = _viewModel.Inspections
-    //        .Where(inspection =>
-    //            (inspection.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
-    //             inspection.SiteName.Contains(searchText, StringComparison.OrdinalIgnoreCase)) &&
-    //            (selectedStatus == "All" || inspection.Status == selectedStatus))
-    //        .ToList();
-
-    //    InspectionCollection.ItemsSource = filteredInspections;
-    //}
 
     private void OnInspectionSelectionChanged(object? sender, SelectionChangedEventArgs e) // sender is the object that raised the event (collection view) and e contains info about the selection change
     {

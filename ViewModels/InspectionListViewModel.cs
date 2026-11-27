@@ -26,6 +26,9 @@ public class InspectionListViewModel : BaseViewModel
     // Holds inspections matching the search text
     public ObservableCollection<Inspection> FilteredInspections { get; set; }
 
+    public ObservableCollection<Inspection> TodaysInspections { get; set; } = new ObservableCollection<Inspection>();
+    public AsyncRelayCommand OpenNewInspectionCommand { get; }
+
     // Stores the text entered by the user
     public string SearchText
     {
@@ -98,6 +101,12 @@ public class InspectionListViewModel : BaseViewModel
 
         // Start the first load through the command pipeline so re-entry protection is used consistently.
         LoadInspectionsCommand.Execute(null);
+
+        OpenNewInspectionCommand = new AsyncRelayCommand(OpenNewInspectionAsync);
+        RefreshInspections();
+
+
+        
     }
 
     public async Task LoadInspectionAsync()
@@ -178,5 +187,21 @@ public class InspectionListViewModel : BaseViewModel
 
         // Check whether the search returned any results
         HasSearchResults = FilteredInspections.Count > 0;
+    }
+
+    private async Task OpenNewInspectionAsync()
+    {
+        if (Shell.Current is not null)
+        {
+            await Shell.Current.Navigation.PushModalAsync(new Views.NewInspectionPage());
+        }
+
+        RefreshInspections();
+    }
+    public void RefreshInspections()
+    {
+        TodaysInspections = new ObservableCollection<Inspection>
+            (InspectionService.GetInspections().Where(inspection => inspection.ScheduledOn.Date == DateTime.Today).Take(3));
+        OnPropertyChanged(nameof(TodaysInspections));
     }
 }

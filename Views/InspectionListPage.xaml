@@ -7,35 +7,53 @@
     xmlns:controls="clr-namespace:EmployeeManagementMAUI.Controls"
     x:Class="EmployeeManagementMAUI.Views.InspectionListPage"
     x:DataType="vm:InspectionListViewModel"
-    Title="Inspections"
-    Shell.NavBarIsVisible="True"
+    
+    
+   
+   
     Shell.BackButtonBehavior="{x:Null}"
     Shell.BackgroundColor="#1D4ED8"
     BackgroundColor="{StaticResource PageBackground}"
     SafeAreaEdges="All">
+    
 
     <Grid RowDefinitions="Auto,Auto,*"
           Padding="{StaticResource SpacingPage}"
           RowSpacing="{StaticResource SpacingCard}">
-        
+
 
         <!-- Page Heading -->
 
         <VerticalStackLayout Grid.Row="0"
                              Spacing="{StaticResource SpacingLarge}">
 
-            <VerticalStackLayout Spacing="{StaticResource SpacingSmall}">
-                <Label Text="Inspections"
-                       Style="{StaticResource PageTitleLabelStyle}" />
+            <Grid ColumnDefinitions="*,Auto"
+                  VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="0"
+                                     Spacing="{StaticResource SpacingSmall}">
+                    <Label Text="Inspections"
+                           Style="{StaticResource PageTitleLabelStyle}" />
 
-                <Label Text="View all scheduled inspections"
-                       FontSize="{StaticResource FontSizeBody}"
-                       TextColor="{StaticResource TextSecondary}" />
-                
-                
-            </VerticalStackLayout>
+                    <Label Text="View all scheduled inspections"
+                           FontSize="{StaticResource FontSizeBody}"
+                           TextColor="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
 
-
+                <Button Grid.Column="1"
+                        Text="+"
+                        Command="{Binding OpenNewInspectionCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        WidthRequest="{StaticResource MinTouchTarget}"
+                        HeightRequest="{StaticResource MinTouchTarget}"
+                        CornerRadius="22"
+                        Padding="0"
+                        FontSize="24"
+                        FontFamily="{StaticResource BoldFont}"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="Add new inspection"
+                        SemanticProperties.Hint="Opens the new inspection form" />
+            </Grid>
 
             <!-- Search bar -->
             <Border
@@ -43,23 +61,25 @@
             Stroke="#E2E5F2"
             StrokeThickness="1"
             StrokeShape="RoundRectangle 30"
-            Padding="14,4"
-            Margin="0,0,0,16">
+            Padding="{StaticResource SearchBarPadding}"
+            Margin="{StaticResource SearchBarMargin}">
 
-            <Grid ColumnDefinitions="Auto,*,Auto"
-            ColumnSpacing="2"
+                <Grid ColumnDefinitions="Auto,*,Auto"
+            ColumnSpacing="{StaticResource SpacingExtraSmall}"
             VerticalOptions="Center">
 
-             <!-- Search icon -->
-            <Label
+                    <!-- Search icon -->
+                    <Label
+               
             Grid.Column="0"
             Text="⌕"
-            FontSize="30"
+                    Padding="{StaticResource SearchBarPadding}"
+            FontSize="{StaticResource FontSizeHeadline}"
             TextColor="{StaticResource TextSecondary}"
             VerticalOptions="Center" />
 
-            <!-- Search entry -->
-            <Entry
+                    <!-- Search entry -->
+                    <Entry
             Grid.Column="1"
             x:Name="SearchEntry"
             Placeholder="Search by title, inspector or site"
@@ -71,7 +91,7 @@
             ClearButtonVisibility="WhileEditing"
             VerticalOptions="Center" />
 
-         
+
                 </Grid>
             </Border>
 
@@ -79,7 +99,7 @@
 
         </VerticalStackLayout>
 
-        
+
 
         <!-- Shows loading progress while inspections are being loaded -->
         <ActivityIndicator Grid.Row="1"                        
@@ -99,8 +119,7 @@
                        TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
-                       IsVisible="{Binding ShowEmptyState,
-                                   Converter={StaticResource InverseBooleanConverter}}" />
+                        IsVisible="{Binding ShowEmptyState}" />
 
 
                 <!-- CollectionView -->
@@ -110,72 +129,72 @@
 
                 <!--We used the SelectionChanged event because we needed direct access to SelectionChangedEventArgs to retrieve the selected inspection and navigate to its detail page. 
                 Although MAUI supports SelectionChangedCommand too, we used the event to demonstrate event-based handling of this UI interaction-->
-                
+
                 <CollectionView x:Name="InspectionCollection"
                                 ItemsSource="{Binding FilteredInspections}"
                                 SelectionMode="Single"
                                 SelectionChanged="OnInspectionSelectionChanged"
                                 VerticalScrollBarVisibility="Never">
 
-            <!-- <CollectionView.EmptyView>
+                    <!-- <CollectionView.EmptyView>
                 <Label Text="No inspections available"
                        TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </CollectionView.EmptyView> -->
 
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical"
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="{StaticResource SpacingLarge}" />
-            </CollectionView.ItemsLayout>
+                    </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Inspection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Inspection">
 
-                    <ContentView ControlTemplate="{StaticResource CardTemplate}"
+                            <ContentView ControlTemplate="{StaticResource CardTemplate}"
                                  Padding="{StaticResource SpacingCard}">
 
-                        <!-- Selected Item Visual States to highlight -->
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
+                                <!-- Selected Item Visual States to highlight -->
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
 
-                                <VisualState x:Name="Normal">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor"
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor"
                                                 Value="Transparent" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                            </VisualState.Setters>
+                                        </VisualState>
 
-                                <VisualState x:Name="Selected">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor"
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor"
                                                 Value="{StaticResource PrimaryLight}" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                            </VisualState.Setters>
+                                        </VisualState>
 
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
 
-                        <Grid ColumnDefinitions="*,Auto,Auto,Auto"
+                                <Grid ColumnDefinitions="*,Auto,Auto,Auto"
                               RowDefinitions="Auto,Auto,Auto, Auto"
                               RowSpacing="{StaticResource SpacingMedium}">
 
-                            <!-- Inspection Title -->
-                            <Label Grid.Row="0"
+                                    <!-- Inspection Title -->
+                                    <Label Grid.Row="0"
                                    Grid.Column="0"
                                    Text="{Binding Title}"
                                    Style="{StaticResource InspectionTitleLabelStyle}" />
 
-                            <!-- Inspection Status — reusable StatusBadge control -->
-                            <controls:StatusBadge
+                                    <!-- Inspection Status — reusable StatusBadge control -->
+                                    <controls:StatusBadge
                                    Grid.Row="0"
                                    Grid.Column="3"
                                    Status="{Binding Status}"
                                    HorizontalOptions="End"
                                    VerticalOptions="Center" />
 
-                            <!--prority-->
-                            <controls:StatusBadge
+                                    <!--prority-->
+                                    <controls:StatusBadge
                                    Grid.Row="2"
                                    Grid.Column="3"      
                                     HorizontalOptions="End"
@@ -183,8 +202,8 @@
                                    VerticalOptions="Center" />
 
 
-                            <!-- Site -->
-                            <Label Grid.Row="2"
+                                    <!-- Site -->
+                                    <Label Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding SiteName,
@@ -193,15 +212,15 @@
                                    TextColor="{StaticResource TextSecondary}" />
 
 
-                            <!-- Scheduled Date -->
-                            <Label Grid.Row="3"
+                                    <!-- Scheduled Date -->
+                                    <Label Grid.Row="3"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding ScheduledOn,StringFormat='Scheduled: {0}', Converter= {StaticResource DateToRelativeTextConverter}}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextColor="{StaticResource TextSecondary}" />
 
-                            <!--Inspector name-->
+                                    <!--Inspector name-->
                                     <Label Grid.Row="3"
                                    Grid.Column="2"
                                    Grid.ColumnSpan="2"                                         
@@ -214,13 +233,13 @@
                                 </Grid>
 
 
-                    </ContentView>
+                            </ContentView>
 
 
 
 
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
                 </CollectionView>
 
@@ -228,5 +247,5 @@
 
         </RefreshView>
     </Grid>
-    
+
 </ContentPage>

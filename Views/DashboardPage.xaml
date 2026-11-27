@@ -56,21 +56,7 @@
                 Tapped event is handled in DashboardPage.xaml.cs and pushes
                 InspectorProfilePage onto the Shell navigation stack.
             -->
-            <Button Grid.Column="1"
-                    Text="+"
-                    Command="{Binding OpenNewInspectionCommand}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    WidthRequest="{StaticResource MinTouchTarget}"
-                    HeightRequest="{StaticResource MinTouchTarget}"
-                    CornerRadius="22"
-                    Padding="0"
-                    Margin="0,0,8,0"
-                    FontSize="24"
-                    FontFamily="{StaticResource BoldFont}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    SemanticProperties.Description="Add new inspection"
-                    SemanticProperties.Hint="Opens the new inspection form" />
+
 
             <Border Grid.Column="2"
                     x:Name="ProfileIconBorder"

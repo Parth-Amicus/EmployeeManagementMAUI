@@ -11,7 +11,7 @@ public class InverseBooleanConverter : IValueConverter
         CultureInfo culture)
     {
         if (value is bool booleanValue)
-            return booleanValue;
+            return !booleanValue;
 
         return true;
     }
